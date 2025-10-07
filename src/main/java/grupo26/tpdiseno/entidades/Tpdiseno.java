@@ -2,24 +2,35 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package grupo26.tpdiseno;
+package grupo26.tpdiseno.entidades;
 
 import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.TipoConsumidor;
 import grupo26.tpdiseno.entidades.TipoSexo;
 import java.util.Date;
 
-/**
- *
- * @author Diego
- */
 public class Tpdiseno {
 
     public static void main(String[] args) {
-        Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
+        //Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
 
+        //Usuario user1 = new Usuario("Gabi", "123");
+        
+        
+        
+        PantallaDarAltaHuesped pantalla = new PantallaDarAltaHuesped();
+        GestorHuesped gestor = new GestorHuesped();
+        
+        gestor.DarAltaHuesped(  pantalla.generarDTO()   );
+        
+        
+        
+        
+        
+        
+        
         // Creamos una instancia de Huesped
-    // Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
+         // Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
 
         // Creamos una instancia de Huesped
        /* Huesped nuevoHuesped = new Huesped(
