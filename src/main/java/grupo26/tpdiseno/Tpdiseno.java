@@ -18,7 +18,7 @@ public class Tpdiseno {
     public static void main(String[] args) {
         Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
 
-        // Creamos una instancia de Huesped
+        // Creamos una instancia de Huespeddsds
     // Date fechaNacimientoEjemplo = new Date(1990, 5, 15); // Año-1900, Mes(0-11), Día
 
         // Creamos una instancia de Huesped
