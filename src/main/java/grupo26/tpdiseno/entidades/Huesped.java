@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package grupo26.tpdiseno.entidades;
 
 import java.util.Date;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 
 
 public class Huesped extends Persona{
@@ -14,26 +10,14 @@ public class Huesped extends Persona{
     private int edad;
     private TipoSexo sexo;
     private int documentacion;
-    private LocalDate fechaNacimiento;
+    private Date fechaNacimiento;
     private TipoConsumidor consumidorFinal;
     private String email;
     private String ocupacion;
 
-    /*public Huesped(String cuit, String telefono, String nacionalidad,Direccion direccion, String nombres, String apellido, int edad, TipoSexo sexo, int documentacion, Date fechaNacimiento, TipoConsumidor consumidorFinal, String email, String ocupacion) {
-        super(cuit,telefono,nacionalidad,direccion);
-        this.nombres = nombres;
-        this.apellido = apellido;
-        this.edad = edad;
-        this.sexo = sexo;
-        this.documentacion = documentacion;
-        this.fechaNacimiento = fechaNacimiento;
-        this.consumidorFinal = consumidorFinal;
-        this.email = email;
-        this.ocupacion = ocupacion;
-    }*/
     
     public Huesped(HuespedDTO unDTO){
-         super(unDTO.cuit,unDTO.telefono,unDTO.nacionalidad,unDTO.direccion);
+         super(unDTO.cuit, unDTO.telefono, unDTO.nacionalidad, unDTO.direccion);
          this.nombres = unDTO.nombres;
          this.apellido = unDTO.apellido;
          this.edad = unDTO.edad;
@@ -67,14 +51,19 @@ public class Huesped extends Persona{
     
     
     
-    
-    
-    
-    
-    
       public void verNombreYApellido(){
         System.out.println("Nombre: " + this.nombres);
         System.out.println("Apellido: " + this.apellido);
         }
     
+      
+      public void verFechaNacimiento(){
+          
+          SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+          
+          System.out.println(formato.format(fechaNacimiento));
+        }
+      
+      
+     
 }

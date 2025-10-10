@@ -1,18 +1,14 @@
 package grupo26.tpdiseno.entidades;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
-public class GestorHuesped{
+
+public class GestorHuesped implements FechaFunciones{
     
-    public void DarAltaHuesped(HuespedDTO unHuesped){
-        //HuespedSQL huespedNuevo;
-        
-        Huesped nuevo = new Huesped(unHuesped);
-        
-        nuevo.verNombreYApellido();
-        
-        
-        
-    } 
-    
+    public Huesped DarAltaHuesped(HuespedDTO unHuespedDTO){   
+        return (new Huesped(unHuespedDTO));
+    }
     
 }

@@ -1,9 +1,10 @@
 package grupo26.tpdiseno.entidades;
 import java.util.Date;
-import java.time.LocalDate;
+import java.io.Serializable;
 
 
-public class HuespedDTO{
+
+public class HuespedDTO implements Serializable{
     final String cuit;
     final String telefono;
     final String nacionalidad;
@@ -14,7 +15,7 @@ public class HuespedDTO{
     final int edad;
     final TipoSexo sexo;
     final int documentacion;
-    final LocalDate fechaNacimiento;
+    final Date fechaNacimiento;
     final TipoConsumidor consumidorFinal;
     final String email;
     final String ocupacion;
@@ -23,7 +24,21 @@ public class HuespedDTO{
     
 
     
-    public HuespedDTO(String cuit, String telefono, String nacionalidad, Direccion direccion, String nombres, String apellido, int edad, TipoSexo sexo, int documentacion, LocalDate fechaNacimiento, TipoConsumidor consumidorFinal, String email, String ocupacion) {
+    public HuespedDTO(
+            String cuit, 
+            String telefono, 
+            String nacionalidad, 
+            Direccion direccion, 
+            String nombres, 
+            String apellido, 
+            int edad, 
+            TipoSexo sexo, 
+            int documentacion, 
+            Date fechaNacimiento, 
+            TipoConsumidor consumidorFinal, 
+            String email, 
+            String ocupacion) {
+        
         this.cuit = cuit;
         this.telefono = telefono;
         this.nacionalidad = nacionalidad;

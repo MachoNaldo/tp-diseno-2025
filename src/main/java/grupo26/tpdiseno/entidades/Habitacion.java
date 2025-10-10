@@ -9,5 +9,5 @@ package grupo26.tpdiseno.entidades;
  * @author Diego
  */
 public class Habitacion {
-    private EstadoHabitacion estado;
+   // private EstadoHabitacion estado;
 }

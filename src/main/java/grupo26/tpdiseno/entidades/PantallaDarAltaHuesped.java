@@ -1,7 +1,8 @@
 package grupo26.tpdiseno.entidades;
 import java.util.Scanner;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class PantallaDarAltaHuesped {
     
@@ -22,8 +23,8 @@ public class PantallaDarAltaHuesped {
         String tipoSexo;
         TipoSexo unTipoSexo = null;
 
+        System.out.print("Ingrese el Sexo (M/F): ");
         do {
-         System.out.print("Ingrese el Sexo (M/F): ");
          tipoSexo = sc.nextLine();
         } while (tipoSexo.length() != 1 ||  (!tipoSexo.equals("M") && !tipoSexo.equals("F")));
 
@@ -40,11 +41,33 @@ public class PantallaDarAltaHuesped {
          System.out.println("Ingrese su Documentacion: ");
          int unDocumento = sc.nextInt();
          
-         System.out.println("Ingrese su Fecha: ");
-         String textoFecha = sc.nextLine(); //Deberia ser DATE
-         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate unaFecha = LocalDate.parse(textoFecha, formato);
          
+         
+         
+         
+         
+         System.out.println("Ingrese su fecha de nacimiento: ");
+         System.out.println("Dia: ");
+         int diaFecha = sc.nextInt();
+         
+         System.out.println("Mes: ");
+         int mesFecha = sc.nextInt();
+         
+         System.out.println("Anio:");
+         int anioFecha = sc.nextInt();
+         
+         LocalDate fechaLocal = LocalDate.of(anioFecha, mesFecha, diaFecha);
+         
+         Date fechaNacimiento = Date.from(fechaLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        
+         
+        
+        
+        
+        
+        
+        
+        
          //CONSUMIDOR FINAL
         String eleccion;
         Scanner sc = new Scanner(System.in);
@@ -111,7 +134,7 @@ System.out.println("Tipo seleccionado: " + unTipoConsumidor);
         
         HuespedDTO unDTO = new HuespedDTO(
                 unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, 
-                unDocumento, unaFecha, unTipoConsumidor, unEmail, unaOcupacion);
+                unDocumento, fechaNacimiento, unTipoConsumidor, unEmail, unaOcupacion);
         
         return unDTO;
         
