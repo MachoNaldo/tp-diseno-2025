@@ -1,3 +1,5 @@
+grupo26\tpdiseno\entidades\DocumentoUsadoException.class
+grupo26\tpdiseno\servicios\HuespedDAO.class
 grupo26\tpdiseno\entidades\TipoSexo.class
 grupo26\tpdiseno\entidades\Direccion.class
 grupo26\tpdiseno\entidades\Habitacion.class
@@ -12,4 +14,5 @@ grupo26\tpdiseno\entidades\TipoConsumidor.class
 grupo26\tpdiseno\entidades\GestorHuesped.class
 grupo26\tpdiseno\entidades\FechaFunciones.class
 grupo26\tpdiseno\entidades\Usuario.class
+grupo26\tpdiseno\servicios\HuespedDAOJSON.class
 grupo26\tpdiseno\Tpdiseno.class
