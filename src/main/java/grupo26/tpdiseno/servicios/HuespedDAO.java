@@ -10,7 +10,7 @@ import grupo26.tpdiseno.entidades.DocumentoUsadoException;
  * @author Usuario
  */
 public interface HuespedDAO {
-    void agregarHuesped(Huesped huesped) throws DocumentoUsadoException;
+    void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException;
     //Huesped buscarHuesped(Huesped huesped);
     //boolean verificarHuesped(Huesped huesped);
     //void prueba(Huesped huesped) throws DocumentoUsadoException;

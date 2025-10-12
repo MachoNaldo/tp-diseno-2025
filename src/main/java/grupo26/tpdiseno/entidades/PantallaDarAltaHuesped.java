@@ -8,7 +8,7 @@ public class PantallaDarAltaHuesped {
     
     Scanner sc = new Scanner(System.in);
 
-    public HuespedDTO generarDTO(){
+    public void DarAltaHuesped(){
         
          System.out.println("Ingrese su Apellido: ");
          String unApellido = sc.nextLine();
@@ -134,7 +134,8 @@ System.out.println("Tipo seleccionado: " + unTipoConsumidor);
                 unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, unTipoDocumento, 
                 unDocumento, fechaNacimiento, unTipoConsumidor, unEmail, unaOcupacion);
         
-        return unDTO;
+        GestorHuesped gestorH = new GestorHuesped();
+        gestorH.DarAltaHuesped(unDTO);
         
     }
 

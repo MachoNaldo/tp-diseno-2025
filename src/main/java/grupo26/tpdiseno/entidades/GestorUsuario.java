@@ -1,23 +1,23 @@
 package grupo26.tpdiseno.entidades;
 
+import grupo26.tpdiseno.servicios.UsuarioDAOJSON;
+
 /*La contraseña tendrá al menos 5 letras y 3 números no iguales ni
 consecutivos en forma creciente o decreciente.*/
 
 
 public class GestorUsuario {
     
-    public boolean autenticarUsuario(String unUsuario, String unaContra){
-        
-        if(unaContra.length()>=8 && contarLetras(unaContra) >=5 && contarNum(unaContra) >=3){
-            return true;
+ public void autenticarUsuario (String unNombre, String unaContra){
+      UsuarioDAOJSON uDAO = new UsuarioDAOJSON();
+       try{
+        if(uDAO.autenticarUsuario(unNombre, unaContra)){
+            System.out.println("Datos Correctos");
         }
-        else{
-            return false;
-        }
-        
-        
-        
-    }
+       } catch (DatosInvalidosException di){
+           System.out.println(di);
+       }
+ }
     
  public static int contarLetras(String texto) {
     int contador = 0;

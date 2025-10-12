@@ -9,7 +9,7 @@ public class HuespedDAOJSON implements HuespedDAO {
     private final File archivo = new File("datosoficiales.json");
 
     @Override
-    public void agregarHuesped(Huesped huesped) throws DocumentoUsadoException {
+    public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException {
         StringBuilder contenido = new StringBuilder();
 
          if (archivo.exists()) {
@@ -33,7 +33,7 @@ public class HuespedDAOJSON implements HuespedDAO {
         String tipoDoc = huesped.getTipoDocumento().name();
         String numeroDoc = String.valueOf(huesped.getDocumentacion());
 
-        if (contenido.toString().contains("\"tipoDocumento\": \"" + tipoDoc + "\"") &&
+        if (forzar == false && contenido.toString().contains("\"tipoDocumento\": \"" + tipoDoc + "\"") &&
             contenido.toString().contains("\"documento\": \"" + numeroDoc + "\"")) {
             throw new DocumentoUsadoException(
                 "El documento " + tipoDoc + " " + numeroDoc + " ya esta registrado."
@@ -53,7 +53,7 @@ public class HuespedDAOJSON implements HuespedDAO {
                 .append("\"nacionalidad\": \"").append(huesped.getNacionalidad()).append("\", ")
                 .append("\"email\": \"").append(huesped.getEmail()).append("\"")
                 .append("}}")
-                .append("\n]");
+                .append("]");
 
         try (BufferedWriter escritor = new BufferedWriter(
             new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
