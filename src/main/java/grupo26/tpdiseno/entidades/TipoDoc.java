@@ -12,6 +12,6 @@ public enum TipoDoc {
     DNI, 
     LE, 
     LC, 
-    Pasaporte, 
+    PASAPORTE, 
     OTRO;
 }
