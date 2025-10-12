@@ -6,8 +6,14 @@ package grupo26.tpdiseno.entidades;
 
 /**
  *
- * @author Diego
+ * @author Usuario
  */
-public class Habitacion {
-   // private EstadoHabitacion estado;
+public class DocumentoUsadoException extends Exception{
+    public DocumentoUsadoException(String mensaje) {
+        super(mensaje);
+    }
+    @Override
+    public String toString() {
+        return getMessage();
+    }
 }

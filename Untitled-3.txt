@@ -1,0 +1,4 @@
+[
+ {"huesped": {"nombre": "Juan", "edad": 34, "documento": "12345658" }},
+ {"huesped": {"nombre": "Ana", "edad": 28, "documento": "98765432" }}
+]
