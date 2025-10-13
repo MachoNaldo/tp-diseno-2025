@@ -35,10 +35,38 @@ public class PantallaDarAltaHuesped {
             case "F":
                     unTipoSexo = TipoSexo.Femenino;
                 break;
-}
-    
-        System.out.println("Ingrese su tipo de documento (DNI, LE, LC, Pasaporte, OTRO) porfissss: ");
-            TipoDoc unTipoDocumento = TipoDoc.valueOf(sc.next());
+        }
+        
+        
+        TipoDoc unTipoDoc;
+        
+        System.out.println("Ingrese tipo de documento: ");
+        System.out.println("1 - DNI");
+        System.out.println("2 - LE");
+        System.out.println("3 - LC");
+        System.out.println("4 - Pasaporte");
+        System.out.println("5 - Otro");
+        
+        switch(sc.nextInt()){
+            case 1: 
+                unTipoDoc = TipoDoc.DNI;
+                break;
+            case 2: 
+                unTipoDoc = TipoDoc.LE;
+                break;
+            case 3: 
+                unTipoDoc = TipoDoc.LC;
+                break;
+            case 4: 
+                unTipoDoc = TipoDoc.PASAPORTE;
+                break;
+            case 5: 
+                unTipoDoc = TipoDoc.OTRO;
+                break;
+            default:
+                unTipoDoc = TipoDoc.DNI;
+        }
+            
 
          
          System.out.println("Ingrese su Documentacion: ");
@@ -57,13 +85,6 @@ public class PantallaDarAltaHuesped {
          LocalDate fechaLocal = LocalDate.of(anioFecha, mesFecha, diaFecha);
          
          Date fechaNacimiento = Date.from(fechaLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        
-         
-        
-        
-        
-        
-        
         
         
          //CONSUMIDOR FINAL
@@ -131,7 +152,7 @@ System.out.println("Tipo seleccionado: " + unTipoConsumidor);
         
         
         HuespedDTO unDTO = new HuespedDTO(
-                unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, unTipoDocumento, 
+                unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, unTipoDoc, 
                 unDocumento, fechaNacimiento, unTipoConsumidor, unEmail, unaOcupacion);
         
         GestorHuesped gestorH = new GestorHuesped();

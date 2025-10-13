@@ -5,13 +5,16 @@
 package grupo26.tpdiseno.servicios;
 import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
+import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author Usuario
  */
 public interface HuespedDAO {
     void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException;
-    //Huesped buscarHuesped(Huesped huesped);
+    void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista);
     //boolean verificarHuesped(Huesped huesped);
     //void prueba(Huesped huesped) throws DocumentoUsadoException;
 }

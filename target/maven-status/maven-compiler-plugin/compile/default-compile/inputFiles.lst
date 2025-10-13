@@ -2,12 +2,15 @@ C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\DatosInva
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\Direccion.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\DocumentoUsadoException.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\FechaFunciones.java
+C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\FiltroBusquedaHuesped.java
+C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\FiltroBusquedaHuespedBUILDER.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\GestorHuesped.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\GestorUsuario.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\Habitacion.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\Huesped.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\HuespedDTO.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\PantallaAutenticarUsuario.java
+C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\PantallaBuscarHuesped.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\PantallaDarAltaHuesped.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\Persona.java
 C:\Users\Gabri\tp-diseno-2025\src\main\java\grupo26\tpdiseno\entidades\Reserva.java
