@@ -1,0 +1,11 @@
+[  
+ {"huesped": {"nombre": "Juan", "edad": 34, "documento": "12345658"}},
+ {"huesped": {"nombre": "Facu", "edad": 34, "documento": "123152658"}},
+ {"huesped": {"nombre": "Franco", "edad": 34, "documento": "123159158"}},
+ {"huesped": {"nombre": "Lucas", "edad": 34, "documento": "666666666"}},
+ {"huesped": {"nombre": "Marco", "edad": 34, "documento": "13131313"}},
+ {"huesped": {"nombre": "Hamas", "edad": 34, "documento": "90909001"}},
+ {"huesped": {"nombre": "Hong", "edad": 34, "documento": "90459001"}},
+{"huesped": {"nombre": "Profesor", "apellido": "Buenavibra", "edad": 34, "tipoDocumento": "DNI", "documento": "90459001", "nacionalidad": "Argentina", "email": "gabi@hotmail.com"}},
+{"huesped": {"nombre": "Gabriel", "apellido": "Incelardo", "edad": 34, "tipoDocumento": "DNI", "documento": "90559001", "nacionalidad": "Argentina", "email": "gabi@hotmail.com"}}
+]

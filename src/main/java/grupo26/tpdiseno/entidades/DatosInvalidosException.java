@@ -6,8 +6,14 @@ package grupo26.tpdiseno.entidades;
 
 /**
  *
- * @author Diego
+ * @author Gabri
  */
-public class Habitacion {
-   // private EstadoHabitacion estado;
+public class DatosInvalidosException extends Exception{
+    public DatosInvalidosException(String mensaje) {
+        super(mensaje);
+    }
+    @Override
+    public String toString() {
+        return getMessage();
+    }
 }
