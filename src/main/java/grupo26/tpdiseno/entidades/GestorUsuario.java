@@ -8,8 +8,22 @@ consecutivos en forma creciente o decreciente.*/
 
 public class GestorUsuario {
     
+ private static GestorUsuario instancia;
+ private final UsuarioDAOJSON uDAO;
+
+ private GestorUsuario() {
+     this.uDAO = UsuarioDAOJSON.getInstancia();
+ }
+    
+ public static GestorUsuario getInstancia() {
+    if (instancia == null) {
+        instancia = new GestorUsuario();
+    }
+    return instancia;
+ }
+    
+  
  public void autenticarUsuario (String unNombre, String unaContra){
-      UsuarioDAOJSON uDAO = new UsuarioDAOJSON();
        try{
         if(uDAO.autenticarUsuario(unNombre, unaContra)){
             System.out.println("Datos Correctos");

@@ -8,7 +8,7 @@ public class PantallaAutenticarUsuario {
     
     
     public void iniciarSesion(){
-        GestorUsuario gestor = new GestorUsuario();
+        GestorUsuario gestor = GestorUsuario.getInstancia();
         
         System.out.println("Ingrese Nombre de Usuario: ");
         String nombre = sc.nextLine();

@@ -18,7 +18,16 @@ import java.nio.charset.StandardCharsets;
  */
 public class UsuarioDAOJSON implements UsuarioDAO{
     private final File archivo = new File("datosoficiales.json");
+    private static UsuarioDAOJSON instancia;
     
+    private UsuarioDAOJSON() {}
+    
+    public static UsuarioDAOJSON getInstancia() {
+        if (instancia == null) {
+            instancia = new UsuarioDAOJSON();
+        }
+        return instancia;
+    }
     
     @Override
     public boolean autenticarUsuario (String unNombre, String unaContra) throws DatosInvalidosException{

@@ -10,14 +10,24 @@ import java.util.ArrayList;
 
 public class GestorHuesped implements FechaFunciones{
     
+    private static GestorHuesped instancia;
+    private final HuespedDAOJSON hDAO;
     
+    private GestorHuesped() {
+        this.hDAO = HuespedDAOJSON.getInstancia();
+    }
+    
+    public static GestorHuesped getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorHuesped();
+        }
+        return instancia;
+    }
     
     public void DarAltaHuesped(HuespedDTO unHuespedDTO){
         
         Huesped h1 = new Huesped(unHuespedDTO);
         
-        
-        HuespedDAOJSON hDAO = new HuespedDAOJSON();
        try{
         hDAO.agregarHuesped(h1, false);
        } catch (DocumentoUsadoException dc){
@@ -29,7 +39,6 @@ public class GestorHuesped implements FechaFunciones{
     }
     
    public void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista){
-       HuespedDAOJSON hDAO = new HuespedDAOJSON();
        
        hDAO.buscarHuesped(unFiltro, unaLista);
        

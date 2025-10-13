@@ -13,7 +13,7 @@ public class Tpdiseno {
     
 
        PantallaAutenticarUsuario pantallaUsuario = new PantallaAutenticarUsuario();
-       //pantallaUsuario.iniciarSesion();
+       pantallaUsuario.iniciarSesion();
        
        PantallaDarAltaHuesped pantallaDarAlta = new PantallaDarAltaHuesped();
        //pantallaDarAlta.DarAltaHuesped();

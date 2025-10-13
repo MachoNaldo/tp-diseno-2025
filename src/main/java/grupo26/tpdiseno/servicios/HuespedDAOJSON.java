@@ -13,7 +13,17 @@ import java.util.List;
 
 public class HuespedDAOJSON implements HuespedDAO {
     private final File archivo = new File("datosoficiales.json");
-
+    
+    private static HuespedDAOJSON instancia;
+    
+    private HuespedDAOJSON() {}
+    
+    public static HuespedDAOJSON getInstancia() {
+        if (instancia == null) {
+            instancia = new HuespedDAOJSON();
+        }
+        return instancia;
+    }
     @Override
     public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException {
         StringBuilder contenido = new StringBuilder();

@@ -76,7 +76,7 @@ public class PantallaBuscarHuesped {
         
         
         List<String> listaHuespedes = new ArrayList();
-        GestorHuesped gestor = new GestorHuesped();
+        GestorHuesped gestor = GestorHuesped.getInstancia();
         
         //Construimos el filtro usando el patron BUILDER
         gestor.buscarHuesped(builder.Build(), listaHuespedes);

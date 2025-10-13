@@ -155,7 +155,7 @@ System.out.println("Tipo seleccionado: " + unTipoConsumidor);
                 unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, unTipoDoc, 
                 unDocumento, fechaNacimiento, unTipoConsumidor, unEmail, unaOcupacion);
         
-        GestorHuesped gestorH = new GestorHuesped();
+        GestorHuesped gestorH = GestorHuesped.getInstancia();
         gestorH.DarAltaHuesped(unDTO);
         
     }
