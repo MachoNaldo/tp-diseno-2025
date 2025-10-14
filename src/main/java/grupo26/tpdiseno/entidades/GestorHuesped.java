@@ -40,9 +40,17 @@ public class GestorHuesped implements FechaFunciones{
     
    public void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista){
        
-       hDAO.buscarHuesped(unFiltro, unaLista);
+       try{
+        hDAO.buscarHuesped(unFiltro, unaLista);
+       } catch (SinConcordanciaException e){
+           System.out.println(e);
+           System.out.println("Pasanda a Dar Alta de Huesped...");
+           new PantallaDarAltaHuesped().DarAltaHuesped();
+       }
        
    }
+   
+  
     
     
 }

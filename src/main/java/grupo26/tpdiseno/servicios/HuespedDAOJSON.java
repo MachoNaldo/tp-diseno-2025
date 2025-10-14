@@ -1,5 +1,6 @@
 package grupo26.tpdiseno.servicios;
 
+import grupo26.tpdiseno.entidades.SinConcordanciaException;
 import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
@@ -51,9 +52,7 @@ public class HuespedDAOJSON implements HuespedDAO {
 
         if (forzar == false && contenido.toString().contains("\"tipoDocumento\": \"" + tipoDoc + "\"") &&
             contenido.toString().contains("\"documento\": \"" + numeroDoc + "\"")) {
-            throw new DocumentoUsadoException(
-                "El documento " + tipoDoc + " " + numeroDoc + " ya esta registrado."
-            );
+            throw new DocumentoUsadoException("El documento " + tipoDoc + " " + numeroDoc + " ya esta registrado.");
         }
 
         if (!contenido.toString().trim().equals("[")) {
@@ -80,7 +79,7 @@ public class HuespedDAOJSON implements HuespedDAO {
     }
     
     @Override
-    public void buscarHuesped(FiltroBusquedaHuesped filtro, List<String> lista){
+    public void buscarHuesped(FiltroBusquedaHuesped filtro, List<String> lista) throws SinConcordanciaException{
         if (archivo.exists()) {
                 try (BufferedReader lector = new BufferedReader(
                         new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
@@ -101,23 +100,24 @@ public class HuespedDAOJSON implements HuespedDAO {
                                         if(filtro.getNumDoc() != 0){
                                             filtrarPorNumDoc(lista, filtro.getNumDoc());
                                         }
-                                        
                                  break;
                              }
                              else{
+                                    //Hacemos que los registros solo muestren los datos que nos interesan
                                  if(linea.contains("huesped")){
-                                     lista.add(linea);
+                                     String registro;
+                                     registro = linea.substring(linea.indexOf("{\"huesped\": "), linea.lastIndexOf("\"edad\": "));
+                                     registro = (registro +  linea.substring(linea.indexOf("\"tipoDocumento\": "), linea.lastIndexOf("\", \"nacionalidad\": \"")) + "\"}");
+                                     lista.add(registro);
                                  }
                              }
-
                             }
                      
                      }catch (IOException e) {
                         System.out.println("Error leyendo archivo: " + e.getMessage());
                     }
                 }
-        
-        
+        if(lista.isEmpty()) {throw new SinConcordanciaException("Sin concordansia con los datos de busqueda");}
     }
     
     

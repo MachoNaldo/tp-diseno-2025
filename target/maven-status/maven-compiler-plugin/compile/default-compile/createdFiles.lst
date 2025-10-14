@@ -19,6 +19,7 @@ grupo26\tpdiseno\entidades\Habitacion.class
 grupo26\tpdiseno\entidades\GestorUsuario.class
 grupo26\tpdiseno\entidades\PantallaBuscarHuesped.class
 grupo26\tpdiseno\entidades\Persona.class
+grupo26\tpdiseno\entidades\SinConcordanciaException.class
 grupo26\tpdiseno\entidades\DatosInvalidosException.class
 grupo26\tpdiseno\entidades\TipoConsumidor.class
 grupo26\tpdiseno\entidades\GestorHuesped.class

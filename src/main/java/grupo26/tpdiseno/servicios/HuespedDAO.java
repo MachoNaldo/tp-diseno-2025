@@ -6,6 +6,7 @@ package grupo26.tpdiseno.servicios;
 import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
+import grupo26.tpdiseno.entidades.SinConcordanciaException;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface HuespedDAO {
     void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException;
-    void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista);
+    void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista) throws SinConcordanciaException;
     //boolean verificarHuesped(Huesped huesped);
     //void prueba(Huesped huesped) throws DocumentoUsadoException;
 }
