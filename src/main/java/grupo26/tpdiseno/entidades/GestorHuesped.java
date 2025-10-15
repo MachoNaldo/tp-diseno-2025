@@ -43,6 +43,13 @@ public class GestorHuesped implements FechaFunciones{
        hDAO.buscarHuesped(unFiltro, unaLista);
        
    }
-    
+   
+   public void modificarHuesped(int num, String huesped, String variable){
+       
+       hDAO.modificarHuesped(num,huesped,variable);
+       
+   } 
+
+   
     
 }

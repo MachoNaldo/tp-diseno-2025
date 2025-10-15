@@ -26,6 +26,34 @@ public class Direccion {
         this.piso = piso;
         this.departamento = departamento;
     }
+
+    public String getNombreCalle() {
+        return nombreCalle;
+    }
+
+    public int getNumCalle() {
+        return numCalle;
+    }
+
+    public String getCodPostal() {
+        return codPostal;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public String getPiso() {
+        return piso;
+    }
+
+    public String getDepartamento() {
+        return departamento;
+    }
     
     
 }

@@ -167,5 +167,164 @@ public class HuespedDAOJSON implements HuespedDAO {
         lista.addAll(nuevaLista);
     }
     
+    @Override
+    public void eliminarHuesped(String huesped){
+        //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
+        StringBuilder contenido = new StringBuilder();
+
+         if (archivo.exists()) {
+                try (BufferedReader lector = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+
+                    String linea;
+                     while ((linea = lector.readLine()) != null) {
+                         if (!linea.trim().equals(huesped)) contenido.append(linea.trim()).append("\n");
+                 }
+                     
+                 }   catch (IOException e) {
+                 System.out.println("Error leyendo archivo: " + e.getMessage());
+                    }
+                } else {
+                contenido.append("[\n");
+           }           
+
+     
+
+
+
+        try (BufferedWriter escritor = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
+            escritor.write(contenido.toString());
+        } catch (IOException e) {
+            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
+        }
+    }
+    
+    public void modificarHuesped(int num, String huesped, String variable){
+       StringBuilder contenido = new StringBuilder();
+        
+          int iniciovariable=0;
+          int finVariable;
+          String variableantigua, huespednew ;
+         
+
+         switch(num){//la idea es poder segun el numero elegir para cambiar
+            case 1: 
+                iniciovariable = huesped.indexOf("Nombre: ") + "Nombre: ".length();//aca buscamos las posiciones para saber el lugar por donde hacer el cambio, antes iba a usar el repleace pero podia haber erro si se repetian datos,ej :nombre Jose  y apellido Jose
+                finVariable = huesped.indexOf(",", iniciovariable);
+
+                  huespednew = huesped.substring(0, iniciovariable) + variable + huesped.substring(finVariable);//aca hacemos el cambio pa y lo asignamos a una nueva variable
+
+                break;
+            case 2: 
+                iniciovariable = huesped.indexOf("Apellido: ") + "Apellido: ".length();
+                finVariable = huesped.indexOf(",", iniciovariable);
+
+                  huespednew = huesped.substring(0, iniciovariable) + variable + huesped.substring(finVariable);
+                break;
+            case 3: 
+                
+                break;
+            case 4: 
+                 
+                break;
+            case 5: 
+                  
+                    break;
+            case 6: 
+                
+                break;
+            case 7: 
+                
+                break;
+            case 8: 
+                
+                break;
+            case 9: 
+               
+                break;
+            case 10: 
+
+                break;
+                
+                
+             case 11:
+                            
+                break;
+             
+             case 12:
+
+                break;
+             
+             case 13:
+
+                break;
+             
+             case 14:
+
+                break;
+                
+             case 15:
+
+                break;
+             
+             case 16:
+
+                break;
+                            
+            case 17:
+
+                break;
+                
+            case 18:
+
+                break;
+            case 19:
+
+                break;
+             
+            default:
+             ;
+       
+       
+       
+       
+       
+       
+       
+       
+         if (archivo.exists()) {
+                try (BufferedReader lector = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+
+                    String linea;
+                     while ((linea = lector.readLine()) != null) {
+                         if (!linea.trim().equals(huesped)) contenido.append(linea.trim()).append("\n");
+                 }
+                     
+                 }   catch (IOException e) {
+                 System.out.println("Error leyendo archivo: " + e.getMessage());
+                    }
+                } else {
+                contenido.append("[\n");
+           }           
+
+     
+
+
+
+        try (BufferedWriter escritor = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
+            escritor.write(contenido.toString());
+        } catch (IOException e) {
+            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
+        }
+    }
+       
+       
+   } 
     
 }
+
+
+
