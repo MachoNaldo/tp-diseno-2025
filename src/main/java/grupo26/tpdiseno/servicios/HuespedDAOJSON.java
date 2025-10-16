@@ -117,7 +117,7 @@ public class HuespedDAOJSON implements HuespedDAO {
                         System.out.println("Error leyendo archivo: " + e.getMessage());
                     }
                 }
-        if(lista.isEmpty()) {throw new SinConcordanciaException("Sin concordansia con los datos de busqueda");}
+        if(lista.isEmpty()) {throw new SinConcordanciaException("Sin concordancia con los datos de busqueda");}
     }
     
     
