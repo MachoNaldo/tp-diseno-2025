@@ -167,5 +167,40 @@ public class HuespedDAOJSON implements HuespedDAO {
         lista.addAll(nuevaLista);
     }
     
+    @Override
+    public void eliminarHuesped(String huesped){
+        //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
+        StringBuilder contenido = new StringBuilder();
+
+         if (archivo.exists()) {
+                try (BufferedReader lector = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+
+                    String linea;
+                     while ((linea = lector.readLine()) != null) {
+                         if (!linea.trim().equals(huesped)) contenido.append(linea.trim()).append("\n");
+                 }
+                     
+                 }   catch (IOException e) {
+                 System.out.println("Error leyendo archivo: " + e.getMessage());
+                    }
+                } else {
+                contenido.append("[\n");
+           }           
+
+     
+
+
+
+        try (BufferedWriter escritor = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
+            escritor.write(contenido.toString());
+        } catch (IOException e) {
+            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
+        }
+    }
     
+    void modificarHuesped(String huesped){}
+        
+}
 }
