@@ -1,5 +1,6 @@
-package grupo26.tpdiseno.entidades;
+package grupo26.tpdiseno.pantallas;
 
+import grupo26.tpdiseno.GestorUsuario;
 import java.util.Scanner;
 
 

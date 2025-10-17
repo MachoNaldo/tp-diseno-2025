@@ -1,13 +1,8 @@
 [
-{"usuario": {"nombreUsuario": "Lucas", "clave": "12345"}}
-,
-{"usuario": {"nombreUsuario": "Nico", "clave": "abcd"}}
-,
-{"usuario": {"nombreUsuario": "Franco", "clave": "contrasenia"}}
-,
-{"huesped": {"nombre": "Gabriel", "apellido": "Isnardo", "edad": 44, "tipoDocumento": "DNI", "documento": "90227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com"}}
-,
-{"huesped": {"nombre": "Lucas", "apellido": "Curbela", "edad": 44, "tipoDocumento": "DNI", "documento": "10227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com"}}
-,
-{"huesped": {"nombre": "Agustin", "apellido": "Curbela", "edad": 44, "tipoDocumento": "DNI", "documento": "20227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com"}}
+{"usuario": {"nombreUsuario": "Lucas", "clave": "12345"}},
+{"usuario": {"nombreUsuario": "Nico", "clave": "abcd"}},
+{"usuario": {"nombreUsuario": "Franco", "clave": "contrasenia"}},
+{"huesped": {"id": "1", "nombre": "Gabriel", "apellido": "Isnardo", "edad": 24, "tipoDocumento": "DNI", "documento": "43415300", "nacionalidad": "argentino", "email": "gabrielisnardo01@hotmail.com", "hospedado": "no"}},
+{"huesped": {"id": "2", "nombre": "Lucas", "apellido": "Sanabria", "edad": 44, "tipoDocumento": "DNI", "documento": "20227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com", "hospedado": "no"}},
+{"huesped": {"id": "3", "nombre": "Agustin", "apellido": "Curbela", "edad": 25, "tipoDocumento": "DNI", "documento": "34567889", "nacionalidad": "Argentino", "email": "agustin345@gmail.com", "hospedado": "no"}}
 ]

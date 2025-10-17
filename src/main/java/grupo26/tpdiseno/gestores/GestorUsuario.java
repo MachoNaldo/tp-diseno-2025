@@ -1,5 +1,6 @@
-package grupo26.tpdiseno.entidades;
+package grupo26.tpdiseno;
 
+import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.servicios.UsuarioDAOJSON;
 
 /*La contraseña tendrá al menos 5 letras y 3 números no iguales ni

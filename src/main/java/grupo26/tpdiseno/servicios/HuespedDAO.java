@@ -16,6 +16,8 @@ import java.util.List;
 public interface HuespedDAO {
     void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException;
     void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista) throws SinConcordanciaException;
+    void modificarHuesped(Huesped unHuesped, String unIndice);
+    void eliminarHuesped(String unHuesped);
     //boolean verificarHuesped(Huesped huesped);
     //void prueba(Huesped huesped) throws DocumentoUsadoException;
 }

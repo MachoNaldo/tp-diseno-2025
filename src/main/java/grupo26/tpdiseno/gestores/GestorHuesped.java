@@ -1,15 +1,88 @@
-package grupo26.tpdiseno.entidades;
-import java.util.Scanner;
+package grupo26.tpdiseno.gestores;
+
+import grupo26.tpdiseno.entidades.Direccion;
+import grupo26.tpdiseno.entidades.DocumentoUsadoException;
+import grupo26.tpdiseno.entidades.FechaFunciones;
+import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
+import grupo26.tpdiseno.entidades.Huesped;
+import grupo26.tpdiseno.entidades.HuespedDTO;
+import grupo26.tpdiseno.entidades.SinConcordanciaException;
+import grupo26.tpdiseno.entidades.TipoConsumidor;
+import grupo26.tpdiseno.entidades.TipoDoc;
+import grupo26.tpdiseno.entidades.TipoSexo;
+import grupo26.tpdiseno.pantallas.PantallaDarAltaHuesped;
+import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
+import grupo26.tpdiseno.servicios.HuespedDAOJSON;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class PantallaDarAltaHuesped {
+
+public class GestorHuesped implements FechaFunciones{
     
-    Scanner sc = new Scanner(System.in);
-
-    public void DarAltaHuesped(){
+    
+    private static GestorHuesped instancia;
+    private final HuespedDAOJSON hDAO;
+    
+    GestorHuesped() {
+        this.hDAO = HuespedDAOJSON.getInstancia();
+    }
+    
+    public static GestorHuesped getInstancia() {
+        if (instancia == null) {
+            instancia = new GestorHuesped();
+        }
+        return instancia;
+    }
+    
+    public void DarAltaHuesped(HuespedDTO unHuespedDTO){
         
+        Huesped h1 = new Huesped(this.generarHuespedDTO());
+        
+       try{
+        hDAO.agregarHuesped(h1, false);
+       } catch (DocumentoUsadoException dc){
+           System.out.println(dc);
+       }
+        
+        
+        System.out.println("El huesped se cargo con exito en el sistema");
+    }
+    
+    public void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista){
+       
+       try{
+        hDAO.buscarHuesped(unFiltro, unaLista);
+       } catch (SinConcordanciaException e){
+           System.out.println(e);
+           System.out.println("Pasanda a Dar Alta de Huesped...");
+           new PantallaDarAltaHuesped().DarAltaHuesped();
+       }
+       
+   }
+   
+    public void ModificarHuesped(HuespedDTO unDTO){
+        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
+        PantallaDarAltaHuesped pantallaA = new PantallaDarAltaHuesped();
+        //Se selecciona el huesped a modificar
+        String huespedOriginal = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
+        Huesped huespedModificado = new Huesped(unDTO);
+        hDAO.modificarHuesped(huespedModificado, huespedOriginal);
+    }
+    
+    public void EliminarHuesped(){
+        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
+        //Se selecciona el huesped a eliminar
+        String huesped = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
+        hDAO.eliminarHuesped(huesped);
+    }
+    
+    
+    public HuespedDTO generarHuespedDTO(){
+        Scanner sc = new Scanner(System.in);
          System.out.println("Ingrese su Apellido: ");
          String unApellido = sc.nextLine();
          
@@ -29,12 +102,8 @@ public class PantallaDarAltaHuesped {
         } while (tipoSexo.length() != 1 ||  (!tipoSexo.equals("M") && !tipoSexo.equals("F")));
 
         switch (tipoSexo) {
-             case "M":
-                    unTipoSexo = TipoSexo.Masculino;
-                break;
-            case "F":
-                    unTipoSexo = TipoSexo.Femenino;
-                break;
+             case "M" -> unTipoSexo = TipoSexo.Masculino;
+             case "F" -> unTipoSexo = TipoSexo.Femenino;
         }
         
         
@@ -89,7 +158,6 @@ public class PantallaDarAltaHuesped {
         
          //CONSUMIDOR FINAL
         String eleccion;
-        Scanner sc = new Scanner(System.in);
         TipoConsumidor unTipoConsumidor = null;
 
         do {
@@ -104,9 +172,9 @@ public class PantallaDarAltaHuesped {
             case "B":
                     unTipoConsumidor = TipoConsumidor.B;
                 break;
-}
+        }   
 
-System.out.println("Tipo seleccionado: " + unTipoConsumidor);
+        System.out.println("Tipo seleccionado: " + unTipoConsumidor);
 
          
          System.out.println("Ingrese su email: "); //OPCIONAL
@@ -155,10 +223,6 @@ System.out.println("Tipo seleccionado: " + unTipoConsumidor);
                 unCuit, unTelefono, unaNacionalidad, unaDireccion, unNombre, unApellido, unaEdad, unTipoSexo, unTipoDoc, 
                 unDocumento, fechaNacimiento, unTipoConsumidor, unEmail, unaOcupacion);
         
-        GestorHuesped gestorH = GestorHuesped.getInstancia();
-        gestorH.DarAltaHuesped(unDTO);
-        
+        return unDTO;
     }
-
-    
 }

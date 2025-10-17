@@ -5,7 +5,7 @@ import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
 import grupo26.tpdiseno.entidades.Huesped;
-import grupo26.tpdiseno.entidades.PantallaBuscarHuesped;
+import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +28,7 @@ public class HuespedDAOJSON implements HuespedDAO {
     @Override
     public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException {
         StringBuilder contenido = new StringBuilder();
+         int contador = 1;
 
          if (archivo.exists()) {
                 try (BufferedReader lector = new BufferedReader(
@@ -35,15 +36,20 @@ public class HuespedDAOJSON implements HuespedDAO {
 
                     String linea;
                      while ((linea = lector.readLine()) != null) {
-                         if (linea.trim().equals("]")) break;
-
+                         if(linea.contains("huesped")){
+                             contador++;
+                         }
+                         else if (linea.trim().equals("]")) break;
                          contenido.append(linea.trim()).append("\n");
                  }
                  }   catch (IOException e) {
                  System.out.println("Error leyendo archivo: " + e.getMessage());
                     }
-                } else {
-                contenido.append("[\n");
+                }
+         
+         else {
+                contenido.append("[");
+                contenido.append("\n]");
            }           
 
 
@@ -55,20 +61,24 @@ public class HuespedDAOJSON implements HuespedDAO {
             throw new DocumentoUsadoException("El documento " + tipoDoc + " " + numeroDoc + " ya esta registrado.");
         }
 
-        if (!contenido.toString().trim().equals("[")) {
-           contenido.append(",\n");
-        }
-
+        
+        String nuevo = contenido.toString().substring(contenido.toString().indexOf("["), contenido.toString().lastIndexOf("}}\n"));
+        contenido.setLength(0); //Esto limpia el archivo
+        contenido.append(nuevo);
+        contenido.append("}},\n");
         contenido.append("{\"huesped\": {")
-                .append("\"nombre\": \"").append(huesped.getNombres()).append("\", ")
-                .append("\"apellido\": \"").append(huesped.getApellido()).append("\", ")
-                .append("\"edad\": ").append(huesped.getEdad()).append(", ")
-                .append("\"tipoDocumento\": \"").append(tipoDoc).append("\", ")
-                .append("\"documento\": \"").append(numeroDoc).append("\", ")
-                .append("\"nacionalidad\": \"").append(huesped.getNacionalidad()).append("\", ")
-                .append("\"email\": \"").append(huesped.getEmail()).append("\"")
-                .append("}}")
-                .append("]");
+                    .append("\"id\": \"").append(contador).append("\", ")
+                    .append("\"nombre\": \"").append(huesped.getNombres()).append("\", ")
+                    .append("\"apellido\": \"").append(huesped.getApellido()).append("\", ")
+                    .append("\"edad\": ").append(huesped.getEdad()).append(", ")
+                    .append("\"tipoDocumento\": \"").append(tipoDoc).append("\", ")
+                    .append("\"documento\": \"").append(numeroDoc).append("\", ")
+                    .append("\"nacionalidad\": \"").append(huesped.getNacionalidad()).append("\", ")
+                    .append("\"email\": \"").append(huesped.getEmail()).append("\", ")
+                    .append("\"hospedado\": \"").append(huesped.getHospedado() ? "si" : "no").append("\"")
+                    .append("}}")
+                    .append("\n]");
+       
 
         try (BufferedWriter escritor = new BufferedWriter(
             new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
@@ -108,6 +118,7 @@ public class HuespedDAOJSON implements HuespedDAO {
                                      String registro;
                                      registro = linea.substring(linea.indexOf("{\"huesped\": "), linea.lastIndexOf("\"edad\": "));
                                      registro = (registro +  linea.substring(linea.indexOf("\"tipoDocumento\": "), linea.lastIndexOf("\", \"nacionalidad\": \"")) + "\"}");
+                                     registro = linea.substring(linea.indexOf("{\"huesped\": "), linea.lastIndexOf("\"edad\": "));
                                      lista.add(registro);
                                  }
                              }
@@ -120,7 +131,100 @@ public class HuespedDAOJSON implements HuespedDAO {
         if(lista.isEmpty()) {throw new SinConcordanciaException("Sin concordancia con los datos de busqueda");}
     }
     
+    @Override
+    public void modificarHuesped(Huesped unHuesped, String unIndice){
+    StringBuilder contenido = new StringBuilder();
+         if (archivo.exists()) {
+                try (BufferedReader lector = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+
+                    
+                    String linea;
+                     while ((linea = lector.readLine()) != null) {
+                         if (linea.trim().equals("]")){
+                             break;
+                         }
+                         if(linea.contains(unIndice)){
+                            contenido.append("{\"huesped\": {")
+                            .append(unIndice.substring(unIndice.indexOf("\"id\": \""), unIndice.lastIndexOf("\"nombre\": \"")))
+                            .append("\"nombre\": \"").append(unHuesped.getNombres()).append("\", ")
+                            .append("\"apellido\": \"").append(unHuesped.getApellido()).append("\", ")
+                            .append("\"edad\": ").append(unHuesped.getEdad()).append(", ")
+                            .append("\"tipoDocumento\": \"").append(unHuesped.getTipoDocumento()).append("\", ")
+                            .append("\"documento\": \"").append(unHuesped.getDocumentacion()).append("\", ")
+                            .append("\"nacionalidad\": \"").append(unHuesped.getNacionalidad()).append("\", ")
+                            .append("\"email\": \"").append(unHuesped.getEmail()).append("\", ")
+                            .append(linea.substring(linea.indexOf("\"hospedado\": \""))).append("\n");
+                          }
+                         else{
+                             contenido.append(linea.trim()).append("\n");
+                         }    
+                        }
+                     contenido.append("]");
+                 }catch (IOException e) {
+                 System.out.println("Error leyendo archivo: " + e.getMessage());
+                    }
+                } else {
+                contenido.append("[");
+                contenido.append("\n]");
+           }
+       
+
+        try (BufferedWriter escritor = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
+            escritor.write(contenido.toString());
+        } catch (IOException e) {
+            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
+        }
     
+    }
+    
+    @Override
+    public void eliminarHuesped(String unIndice){
+        boolean eliminarComa=false;
+        //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
+        StringBuilder contenido = new StringBuilder();
+        int contador = 1;
+
+         if (archivo.exists()) {
+                try (BufferedReader lector = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+
+                    String linea;
+                     while ((linea = lector.readLine()) != null) {
+                         if (linea.trim().equals("]")){
+                             contenido.append(linea.trim());
+                             break;
+                         }
+                         if(!linea.contains(unIndice)){
+                             if(linea.contains("huesped")){
+                                if(linea.contains("\"id\": \"" + (contador+1))){
+                                    linea = linea.replace("\"id\": \"" + (contador + 1), ("\"id\": \"" + contador));
+                                }
+                                contador++;
+                             }
+                             contenido.append(linea).append("\n");
+                         }
+                 }
+                     
+                 }   catch (IOException e) {
+                 System.out.println("Error leyendo archivo: " + e.getMessage());
+                    }
+                } else {
+                contenido.append("[\n");
+           }           
+
+     
+
+
+
+        try (BufferedWriter escritor = new BufferedWriter(
+            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
+            escritor.write(contenido.toString());
+        } catch (IOException e) {
+            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
+        }
+    }
     
     //PARA FILTRAR LA LINEAS DEL ARCHIVO
     public void filtrarPorNombre(List<String> lista, String unNombre){
@@ -167,40 +271,7 @@ public class HuespedDAOJSON implements HuespedDAO {
         lista.addAll(nuevaLista);
     }
     
-    @Override
-    public void eliminarHuesped(String huesped){
-        //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
-        StringBuilder contenido = new StringBuilder();
-
-         if (archivo.exists()) {
-                try (BufferedReader lector = new BufferedReader(
-                        new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
-
-                    String linea;
-                     while ((linea = lector.readLine()) != null) {
-                         if (!linea.trim().equals(huesped)) contenido.append(linea.trim()).append("\n");
-                 }
-                     
-                 }   catch (IOException e) {
-                 System.out.println("Error leyendo archivo: " + e.getMessage());
-                    }
-                } else {
-                contenido.append("[\n");
-           }           
-
-     
-
-
-
-        try (BufferedWriter escritor = new BufferedWriter(
-            new OutputStreamWriter(new FileOutputStream(archivo), StandardCharsets.UTF_8))) {
-            escritor.write(contenido.toString());
-        } catch (IOException e) {
-            System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
-        }
-    }
     
-    void modificarHuesped(String huesped){}
+   
         
-}
 }

@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package grupo26.tpdiseno.entidades;
+package grupo26.tpdiseno.pantallas;
 
+import grupo26.tpdiseno.entidades.FiltroBusquedaHuespedBUILDER;
+import grupo26.tpdiseno.gestores.GestorHuesped;
+import grupo26.tpdiseno.entidades.TipoDoc;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -90,4 +93,29 @@ public class PantallaBuscarHuesped {
             System.out.println(i);
         }
     }
+    
+    public String seleccionarHuesped(List<String> unaLista) {
+        this.verLista(unaLista);
+        int contador;
+        int eleccion;
+
+        System.out.println("Seleccione un huesped escribiendo su ID: ");
+
+        do {
+            contador = 0;
+            eleccion = sc.nextInt();
+
+            while (contador < unaLista.size() && !unaLista.get(contador).contains("\"id\": \"" + eleccion + "\"")) {
+                contador++;
+            }
+
+            if (contador >= unaLista.size()) {
+                System.out.println("ID no valido, ingrese otro: ");
+            }
+
+        } while (contador >= unaLista.size());
+
+        return unaLista.get(contador);
+    }       
+
 }

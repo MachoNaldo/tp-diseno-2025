@@ -15,6 +15,10 @@ public class Huesped extends Persona {
     private TipoConsumidor consumidorFinal;
     private String email;
     private String ocupacion;
+    
+    //ya se hospedo en el hotel
+    private boolean hospedado;
+    
 
     public Huesped(HuespedDTO unDTO) {
         super(unDTO.cuit, unDTO.telefono, unDTO.nacionalidad, unDTO.direccion);
@@ -28,7 +32,7 @@ public class Huesped extends Persona {
         this.consumidorFinal = unDTO.consumidorFinal;
         this.email = unDTO.email;
         this.ocupacion = unDTO.ocupacion;
-
+        this.hospedado = false; //Para saber si se puede eliminar o no del sistema
     }
 
     public String getNombres() {
@@ -64,7 +68,11 @@ public class Huesped extends Persona {
 
     public String getOcupacion() {
         return ocupacion;
-}   
+    }
+    
+    public boolean getHospedado(){
+        return this.hospedado;
+    }
 
     @Override
     public String toString() {
