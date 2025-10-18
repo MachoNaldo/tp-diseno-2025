@@ -6,5 +6,5 @@
 {"huesped": {"id": "2", "nombre": "Lucas", "apellido": "Sanabria", "edad": 44, "tipoDocumento": "DNI", "documento": "20227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com", "hospedado": "no"}},
 {"huesped": {"id": "4", "nombre": "Gaspar", "apellido": "Benegas", "edad": 49, "tipoDocumento": "DNI", "documento": "291313121", "nacionalidad": "Argentino", "email": "gasparb@gmail.com", "hospedado": "no"}},
 {"huesped": {"id": "5", "nombre": "Nicolas", "apellido": "Perez", "edad": 30, "tipoDocumento": "DNI", "documento": "40123456", "nacionalidad": "Argentino", "email": "monoloco@gmail.com", "hospedado": "no"}},
-{"huesped": {"id": "5", "nombre": "Rafa", "apellido": "Mono", "edad": 21, "tipoDocumento": "DNI", "documento": "232323231", "nacionalidad": "Naco", "email": "nacho@gmail.com", "hospedado": "no"}}
+{"huesped": {"id": "6", "nombre": "Franco", "apellido": "Perez", "edad": 28, "tipoDocumento": "DNI", "documento": "35123456", "nacionalidad": "Argentino", "email": "monoloco@gmail.com", "hospedado": "no"}}
 ]

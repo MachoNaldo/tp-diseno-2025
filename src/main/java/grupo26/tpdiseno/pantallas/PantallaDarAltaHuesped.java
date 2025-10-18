@@ -17,6 +17,7 @@ public class PantallaDarAltaHuesped {
   
     public void DarAltaHuesped(){
          GestorHuesped gestorH = GestorHuesped.getInstancia();
+         //System.out.println("entra");
          HuespedDTO huesped = this.generarHuespedDTO();
          try{
          gestorH.DarAltaHuesped(huesped);
@@ -27,6 +28,7 @@ public class PantallaDarAltaHuesped {
                  gestorH.forzarHuesped(huesped);
             }
          }
+         //System.out.println("termina");
     }
 
     public HuespedDTO generarHuespedDTO(){

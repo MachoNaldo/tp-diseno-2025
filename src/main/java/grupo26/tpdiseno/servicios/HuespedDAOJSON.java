@@ -31,7 +31,7 @@ public class HuespedDAOJSON implements HuespedDAO {
     @Override
     public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException {
         StringBuilder contenido = new StringBuilder();
-        int contador = 1;
+        int mayorID = -1;
 
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
@@ -40,7 +40,11 @@ public class HuespedDAOJSON implements HuespedDAO {
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.contains("huesped")) {
-                        contador++;
+                        int inicioId = linea.indexOf("\"id\": \"") + 7; // +7 para saltar {"id": "
+                        int finId = linea.indexOf("\"", inicioId);
+                        mayorID = Integer.parseInt(linea.substring(inicioId, finId));
+                                                
+                        //contador =  Integer.parseInt((linea.substring(linea.indexOf("{\"id\": ") + 7, linea.lastIndexOf("\","))));
                     } else if (linea.trim().equals("]")) {
                         break;
                     }
@@ -61,13 +65,13 @@ public class HuespedDAOJSON implements HuespedDAO {
                 && contenido.toString().contains("\"documento\": \"" + numeroDoc + "\"")) {
             throw new DocumentoUsadoException("El documento " + tipoDoc + " " + numeroDoc + " ya esta registrado.");
         }
-
+        mayorID++;
         String nuevo = contenido.toString().substring(contenido.toString().indexOf("["), contenido.toString().lastIndexOf("}}\n"));
         contenido.setLength(0); //Esto limpia el archivo
         contenido.append(nuevo);
         contenido.append("}},\n");
         contenido.append("{\"huesped\": {")
-                .append("\"id\": \"").append(contador).append("\", ")
+                .append("\"id\": \"").append(mayorID).append("\", ")
                 .append("\"nombre\": \"").append(huesped.getNombres()).append("\", ")
                 .append("\"apellido\": \"").append(huesped.getApellido()).append("\", ")
                 .append("\"edad\": ").append(huesped.getEdad()).append(", ")
