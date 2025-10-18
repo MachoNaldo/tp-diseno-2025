@@ -41,11 +41,11 @@ public class Tpdiseno {
         
         
        PantallaAutenticarUsuario pantallaUsuario = new PantallaAutenticarUsuario();
-       //pantallaUsuario.iniciarSesion();
-       //PantallaMenu pantallaMenu = new PantallaMenu();
-       //pantallaMenu.mostrarMenu();
+       
+       PantallaMenu pantallaMenu = new PantallaMenu();
+       pantallaMenu.mostrarMenu();
        //if(pantallaUsuario.iniciarSesion())pantallaMenu.mostrarMenu();
-       PantallaDarAltaHuesped pantallaDarAlta = new PantallaDarAltaHuesped();
+       //PantallaDarAltaHuesped pantallaDarAlta = new PantallaDarAltaHuesped();
         //pantallaDarAlta.DarAltaHuesped(); //Por Teclado
         //pantallaDarAlta.DarAltaHuesped(nuevoDTO); //DTO Precargado
        
