@@ -24,14 +24,10 @@ public class GestorUsuario {
  }
     
   
- public void autenticarUsuario (String unNombre, String unaContra){
-       try{
+ public void autenticarUsuario (String unNombre, String unaContra) throws DatosInvalidosException{
         if(uDAO.autenticarUsuario(unNombre, unaContra)){
             System.out.println("Datos Correctos");
         }
-       } catch (DatosInvalidosException di){
-           System.out.println(di);
-       }
  }
     
  public static int contarLetras(String texto) {

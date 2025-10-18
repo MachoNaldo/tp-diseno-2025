@@ -1,98 +1,36 @@
-package grupo26.tpdiseno.gestores;
-
+package grupo26.tpdiseno.pantallas;
 import grupo26.tpdiseno.entidades.Direccion;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
-import grupo26.tpdiseno.entidades.FechaFunciones;
-import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
-import grupo26.tpdiseno.entidades.Huesped;
+import grupo26.tpdiseno.gestores.GestorHuesped;
 import grupo26.tpdiseno.entidades.HuespedDTO;
-import grupo26.tpdiseno.entidades.SinConcordanciaException;
 import grupo26.tpdiseno.entidades.TipoConsumidor;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import grupo26.tpdiseno.entidades.TipoSexo;
-import grupo26.tpdiseno.pantallas.PantallaDarAltaHuesped;
-import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
-import grupo26.tpdiseno.servicios.HuespedDAOJSON;
+import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+public class PantallaDarAltaHuesped {
+    
+    Scanner sc = new Scanner(System.in);
+  
+    public void DarAltaHuesped(){
+         GestorHuesped gestorH = GestorHuesped.getInstancia();
+         HuespedDTO huesped = this.generarHuespedDTO();
+         try{
+         gestorH.DarAltaHuesped(huesped);
+         } catch(DocumentoUsadoException dc){
+             System.out.println("\n El huesped con la documentacion ingresada ya existe, desea ingresarlo de todas formas? (SI/NO)");
+             String respuesta = sc.nextLine().trim().toUpperCase();
+             if (respuesta.equals("SI")) {
+                 gestorH.forzarHuesped(huesped);
+            }
+         }
+    }
 
-public class GestorHuesped implements FechaFunciones{
-    
-    
-    private static GestorHuesped instancia;
-    private final HuespedDAOJSON hDAO;
-    
-    GestorHuesped() {
-        this.hDAO = HuespedDAOJSON.getInstancia();
-    }
-    
-    public static GestorHuesped getInstancia() {
-        if (instancia == null) {
-            instancia = new GestorHuesped();
-        }
-        return instancia;
-    }
-    
-    public void DarAltaHuesped(HuespedDTO unHuespedDTO) throws DocumentoUsadoException{
-        
-        Huesped h1 = new Huesped(unHuespedDTO);
-        
-        hDAO.agregarHuesped(h1, false);  
-        
-        System.out.println("El huesped se cargo con exito en el sistema");
-    }
-    
-    public void forzarHuesped(HuespedDTO unHuespedDTO) {
-        
-        try {
-            Huesped h1 = new Huesped(unHuespedDTO);
-            
-            hDAO.agregarHuesped(h1, true);
-            
-            System.out.println("El huesped se cargo con exito en el sistema");
-        } catch (DocumentoUsadoException ex) {
-            
-        }
-    }
-    
-    public void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista){
-       
-       try{
-        hDAO.buscarHuesped(unFiltro, unaLista);
-       } catch (SinConcordanciaException e){
-           System.out.println(e);
-           System.out.println("Pasanda a Dar Alta de Huesped...");
-           new PantallaDarAltaHuesped().DarAltaHuesped();
-       }
-       
-   }
-   
-    public void ModificarHuesped(HuespedDTO unDTO){
-        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
-        PantallaDarAltaHuesped pantallaA = new PantallaDarAltaHuesped();
-        //Se selecciona el huesped a modificar
-        String huespedOriginal = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
-        Huesped huespedModificado = new Huesped(unDTO);
-        hDAO.modificarHuesped(huespedModificado, huespedOriginal);
-    }
-    
-    public void EliminarHuesped(){
-        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
-        //Se selecciona el huesped a eliminar
-        String huesped = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
-        hDAO.eliminarHuesped(huesped);
-    }
-    
-    
     public HuespedDTO generarHuespedDTO(){
-        Scanner sc = new Scanner(System.in);
+       
          System.out.println("Ingrese su Apellido: ");
          String unApellido = sc.nextLine();
          
@@ -235,4 +173,7 @@ public class GestorHuesped implements FechaFunciones{
         
         return unDTO;
     }
+    
+    
+    
 }

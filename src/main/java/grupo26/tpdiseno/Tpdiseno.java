@@ -7,13 +7,14 @@ import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
 import grupo26.tpdiseno.pantallas.PantallaAutenticarUsuario;
 import grupo26.tpdiseno.pantallas.PantallaModificarHuesped;
 import grupo26.tpdiseno.entidades.*;
+import grupo26.tpdiseno.pantallas.PantallaMenu;
 import grupo26.tpdiseno.servicios.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Tpdiseno {
-
+    
     public static void main(String[] args) {
     
         //DTO SOLO PARA PROBAR RAPIDO
@@ -41,17 +42,19 @@ public class Tpdiseno {
         
        PantallaAutenticarUsuario pantallaUsuario = new PantallaAutenticarUsuario();
        //pantallaUsuario.iniciarSesion();
-  
+       //PantallaMenu pantallaMenu = new PantallaMenu();
+       //pantallaMenu.mostrarMenu();
+       //if(pantallaUsuario.iniciarSesion())pantallaMenu.mostrarMenu();
        PantallaDarAltaHuesped pantallaDarAlta = new PantallaDarAltaHuesped();
         //pantallaDarAlta.DarAltaHuesped(); //Por Teclado
         //pantallaDarAlta.DarAltaHuesped(nuevoDTO); //DTO Precargado
        
        
        PantallaBuscarHuesped  pantallaBuscar = new PantallaBuscarHuesped();
-        //System.out.println("Se selecciono --->" + pantallaBuscar.seleccionarHuesped(pantallaBuscar.buscarHuesped()));
+       //System.out.println("Se selecciono --->" + pantallaBuscar.seleccionarHuesped(pantallaBuscar.buscarHuesped()));
        
       PantallaDarBajaHuesped pantallaEliminar = new PantallaDarBajaHuesped();
-      pantallaEliminar.DarBajaHuesped();
+      //pantallaEliminar.DarBajaHuesped();
        
       PantallaModificarHuesped pantallaModificar = new PantallaModificarHuesped();
       // pantallaModificar.ModificarHuesped(); //Por Teclado

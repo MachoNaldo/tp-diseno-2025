@@ -1,6 +1,7 @@
 grupo26\tpdiseno\entidades\DocumentoUsadoException.class
 grupo26\tpdiseno\entidades\Huesped.class
 grupo26\tpdiseno\pantallas\PantallaAutenticarUsuario.class
+grupo26\tpdiseno\pantallas\PantallaMenu.class
 grupo26\tpdiseno\servicios\UsuarioDAO.class
 grupo26\tpdiseno\entidades\Reserva.class
 grupo26\tpdiseno\GestorUsuario.class
