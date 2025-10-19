@@ -5,6 +5,8 @@ import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
 import grupo26.tpdiseno.entidades.Huesped;
+import grupo26.tpdiseno.entidades.HuespedDTO;
+import static grupo26.tpdiseno.entidades.HuespedDTO.parsearHuesped;
 import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import java.io.*;
@@ -43,7 +45,7 @@ public class HuespedDAOJSON implements HuespedDAO {
                         int inicioId = linea.indexOf("\"id\": \"") + 7; // +7 para saltar {"id": "
                         int finId = linea.indexOf("\"", inicioId);
                         mayorID = Integer.parseInt(linea.substring(inicioId, finId));
-                                                
+
                         //contador =  Integer.parseInt((linea.substring(linea.indexOf("{\"id\": ") + 7, linea.lastIndexOf("\","))));
                     } else if (linea.trim().equals("]")) {
                         break;
@@ -91,6 +93,7 @@ public class HuespedDAOJSON implements HuespedDAO {
         }
     }
 
+    /*
     @Override
     public void buscarHuesped(FiltroBusquedaHuesped filtro, List<String> lista) throws SinConcordanciaException {
         if (archivo.exists()) {
@@ -133,10 +136,61 @@ public class HuespedDAOJSON implements HuespedDAO {
         if (lista.isEmpty()) {
             throw new SinConcordanciaException("Sin concordancia con los datos de busqueda");
         }
+    }*/
+    @Override
+    public List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped filtro) throws SinConcordanciaException {
+        List<HuespedDTO> huespedes = new ArrayList<>();
+         //                 System.out.println("Entre");
+
+        if (archivo.exists()) {
+            try (BufferedReader lector = new BufferedReader(
+                new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+                String linea;
+                while ((linea = lector.readLine()) != null) {
+                    if (linea.contains("huesped")) {
+                        HuespedDTO huesped = parsearHuesped(linea);
+                          //  System.out.println("Apellido leído: '" + huesped.getApellido() + "' (length: " + huesped.getApellido().length() + ")");
+                        huespedes.add(huesped);
+                       //  System.out.println(huesped.toString());
+                       
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error leyendo archivo: " + e.getMessage());
+            }
+        }
+
+        // Aplicar filtros después de cargar todo
+        List<HuespedDTO> listaFiltrada = huespedes;
+/*
+System.out.println("=== VALORES DEL FILTRO ===");
+System.out.println("Nombre: " + filtro.getNombre());
+System.out.println("Apellido: " + filtro.getApellido());
+System.out.println("TipoDoc: " + filtro.getTipoDoc());
+System.out.println("NumDoc: " + filtro.getNumDoc());
+System.out.println("========================");*/
+        if (filtro.getNombre() != null) {
+            listaFiltrada = filtrarPorNombre(listaFiltrada, filtro.getNombre());
+        }
+        if (filtro.getApellido() != null) {
+            listaFiltrada = filtrarPorApellido(listaFiltrada, filtro.getApellido());
+        }
+        if (filtro.getTipoDoc() != null) {
+            listaFiltrada = filtrarPorTipoDoc(listaFiltrada, filtro.getTipoDoc());
+        }
+        if (filtro.getNumDoc() != 0) {
+            listaFiltrada = filtrarPorNumDoc(listaFiltrada, filtro.getNumDoc());
+        }
+
+        if (listaFiltrada.isEmpty()) {
+            throw new SinConcordanciaException("Sin concordancia con los datos de busqueda");
+        }
+
+        return listaFiltrada;
     }
 
     @Override
-    public void modificarHuesped(Huesped unHuesped, String unIndice) {
+    public void modificarHuesped(Huesped unHuesped) {
         StringBuilder contenido = new StringBuilder();
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
@@ -147,9 +201,9 @@ public class HuespedDAOJSON implements HuespedDAO {
                     if (linea.trim().equals("]")) {
                         break;
                     }
-                    if (linea.contains("huesped") && linea.contains(unIndice)) {
+                    if (linea.contains("huesped") && linea.contains("{\"id\": \"" + String.valueOf(unHuesped.getId()))) {
                         contenido.append("{\"huesped\": {")
-                                .append(unIndice.substring(unIndice.indexOf("\"id\": \""), unIndice.lastIndexOf("\"nombre\": \"")))
+                                .append("\"id\": ").append(unHuesped.getId()).append(", ")
                                 .append("\"nombre\": \"").append(unHuesped.getNombres()).append("\", ")
                                 .append("\"apellido\": \"").append(unHuesped.getApellido()).append("\", ")
                                 .append("\"edad\": ").append(unHuesped.getEdad()).append(", ")
@@ -157,7 +211,8 @@ public class HuespedDAOJSON implements HuespedDAO {
                                 .append("\"documento\": \"").append(unHuesped.getDocumentacion()).append("\", ")
                                 .append("\"nacionalidad\": \"").append(unHuesped.getNacionalidad()).append("\", ")
                                 .append("\"email\": \"").append(unHuesped.getEmail()).append("\", ")
-                                .append(linea.substring(linea.indexOf("\"hospedado\": \""))).append("\n");
+                                .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"")
+                                .append("}},\n");
                     } else {
                         contenido.append(linea.trim()).append("\n");
                     }
@@ -197,8 +252,9 @@ public class HuespedDAOJSON implements HuespedDAO {
                         contenido.append(linea.trim());
                         break;
                     }
-                    if (!(linea.contains(unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
+                    if (!(linea.contains("{\"id\": \"" + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
                         contenido.append(linea.trim());
+                        contenido.append("\n");
                     }
                 }
 
@@ -218,51 +274,28 @@ public class HuespedDAOJSON implements HuespedDAO {
     }
 
     //PARA FILTRAR LA LINEAS DEL ARCHIVO
-    public void filtrarPorNombre(List<String> lista, String unNombre) {
-        List<String> nuevaLista = new ArrayList();
-        for (String i : lista) {
-            if (i.contains(("\"nombre\": \"" + unNombre + "\""))) {
-                nuevaLista.add(i);
-            }
-        }
-        lista.clear();
-        lista.addAll(nuevaLista);
+    public List<HuespedDTO> filtrarPorNombre(List<HuespedDTO> lista, String unNombre) {
+        return lista.stream()
+                .filter(h -> h.getNombres().equalsIgnoreCase(unNombre))
+                .toList();
     }
 
-    public void filtrarPorApellido(List<String> lista, String unApellido) {
-        List<String> nuevaLista = new ArrayList();
-
-        for (String i : lista) {
-            if (i.contains(("\"apellido\": \"" + unApellido + "\""))) {
-                nuevaLista.add(i);
-            }
-        }
-        lista.clear();
-        lista.addAll(nuevaLista);
+    public List<HuespedDTO> filtrarPorApellido(List<HuespedDTO> lista, String unApellido) {
+        return lista.stream()
+                .filter(h -> h.getApellido().equalsIgnoreCase(unApellido))
+                .toList();
     }
 
-    public void filtrarPorTipoDoc(List<String> lista, TipoDoc unTipoDoc) {
-        List<String> nuevaLista = new ArrayList();
-
-        for (String i : lista) {
-            if (i.contains(("\"tipoDocumento\": \"" + unTipoDoc + "\""))) {
-                nuevaLista.add(i);
-            }
-        }
-        lista.clear();
-        lista.addAll(nuevaLista);
+    public List<HuespedDTO> filtrarPorTipoDoc(List<HuespedDTO> lista, TipoDoc unTipoDoc) {
+        return lista.stream()
+                .filter(h -> h.getTipoDocumento().equals(unTipoDoc))
+                .toList();
     }
 
-    public void filtrarPorNumDoc(List<String> lista, int unNumDoc) {
-        List<String> nuevaLista = new ArrayList();
+    public List<HuespedDTO> filtrarPorNumDoc(List<HuespedDTO> lista, int unNumDoc) {
+        return lista.stream()
+                .filter(h -> h.getTipoDocumento().equals(unNumDoc))
+                .toList();
 
-        for (String i : lista) {
-            if (i.contains(("\"documento\": \"" + unNumDoc + "\""))) {
-                nuevaLista.add(i);
-            }
-        }
-        lista.clear();
-        lista.addAll(nuevaLista);
     }
-
 }

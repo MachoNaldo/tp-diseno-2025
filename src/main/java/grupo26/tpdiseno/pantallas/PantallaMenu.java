@@ -46,12 +46,12 @@ public class PantallaMenu {
                         pantallaDarAlta.DarAltaHuesped();
                         break;
                     case 2:
-                        pantallaBuscar.seleccionarHuesped( pantallaBuscar.buscarHuesped());
+                        pantallaBuscar.buscarHuesped();
                         //pantallaModificar.ModificarHuesped();
                         break;
                     case 3:
                         
-                        pantallaModificar.ModificarHuesped();
+                        //pantallaModificar.ModificarHuesped();
                         break;
                     case 4:
                         pantallaEliminar.DarBajaHuesped();

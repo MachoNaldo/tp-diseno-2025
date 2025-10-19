@@ -62,32 +62,31 @@ public class GestorHuesped implements FechaFunciones{
         }
     }
     
-    public void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista){
-       
+    public List<HuespedDTO> buscarHuesped(FiltroBusquedaHuesped unFiltro){
        try{
-        hDAO.buscarHuesped(unFiltro, unaLista);
+         return hDAO.buscarHuespedDTO(unFiltro);
        } catch (SinConcordanciaException e){
            System.out.println(e);
-           System.out.println("Pasanda a Dar Alta de Huesped...");
+           System.out.println("Pasando a Dar Alta de Huesped...");
            new PantallaDarAltaHuesped().DarAltaHuesped();
        }
-       
+        return null;
    }
    
-    public void ModificarHuesped(HuespedDTO unDTO){
-        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
-        PantallaDarAltaHuesped pantallaA = new PantallaDarAltaHuesped();
+    public void modificarHuesped(HuespedDTO unDTO){
+        //PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
+        //PantallaDarAltaHuesped pantallaA = new PantallaDarAltaHuesped();
         //Se selecciona el huesped a modificar
-        String huespedOriginal = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
+    //    String huespedOriginal = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
         Huesped huespedModificado = new Huesped(unDTO);
-        hDAO.modificarHuesped(huespedModificado, huespedOriginal);
+        hDAO.modificarHuesped(huespedModificado);
     }
     
-    public void EliminarHuesped(){
-        PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
+    public void eliminarHuesped(String id){
+        //PantallaBuscarHuesped pantallaB = new PantallaBuscarHuesped();
         //Se selecciona el huesped a eliminar
-        String huesped = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
-        hDAO.eliminarHuesped(huesped);
+      //  String huesped = pantallaB.seleccionarHuesped(pantallaB.buscarHuesped());
+        hDAO.eliminarHuesped(id);
     }
     
     

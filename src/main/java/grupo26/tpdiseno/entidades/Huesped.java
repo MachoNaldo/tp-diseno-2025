@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class Huesped extends Persona {
 
+    private int id;
     private String nombres;
     private String apellido;
     private int edad;
@@ -22,6 +23,7 @@ public class Huesped extends Persona {
 
     public Huesped(HuespedDTO unDTO) {
         super(unDTO.cuit, unDTO.telefono, unDTO.nacionalidad, unDTO.direccion);
+        this.id = unDTO.id;
         this.nombres = unDTO.nombres;
         this.apellido = unDTO.apellido;
         this.edad = unDTO.edad;
@@ -72,6 +74,14 @@ public class Huesped extends Persona {
     
     public boolean getHospedado(){
         return this.hospedado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isHospedado() {
+        return hospedado;
     }
 
     @Override

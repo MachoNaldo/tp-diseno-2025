@@ -15,7 +15,7 @@ public class PantallaDarBajaHuesped {
    
     public void DarBajaHuesped(){
         GestorHuesped gestorH = GestorHuesped.getInstancia();
-        gestorH.EliminarHuesped();
+        //gestorH.EliminarHuesped();
     }
     
     
