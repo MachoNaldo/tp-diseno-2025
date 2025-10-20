@@ -36,11 +36,6 @@ public class Tpdiseno {
                 "Gabriel@hotmail.com",//email
                 "Vendedor de tutucas" //Ocupacion
          );
-        
-        
-        
-        
-       PantallaAutenticarUsuario pantallaUsuario = new PantallaAutenticarUsuario();
        
        PantallaMenu pantallaMenu = new PantallaMenu();
        pantallaMenu.mostrarMenu();
@@ -48,17 +43,5 @@ public class Tpdiseno {
        //PantallaDarAltaHuesped pantallaDarAlta = new PantallaDarAltaHuesped();
         //pantallaDarAlta.DarAltaHuesped(); //Por Teclado
         //pantallaDarAlta.DarAltaHuesped(nuevoDTO); //DTO Precargado
-       
-       
-       PantallaBuscarHuesped  pantallaBuscar = new PantallaBuscarHuesped();
-       //System.out.println("Se selecciono --->" + pantallaBuscar.seleccionarHuesped(pantallaBuscar.buscarHuesped()));
-       
-      PantallaDarBajaHuesped pantallaEliminar = new PantallaDarBajaHuesped();
-      //pantallaEliminar.DarBajaHuesped();
-       
-      PantallaModificarHuesped pantallaModificar = new PantallaModificarHuesped();
-      // pantallaModificar.ModificarHuesped(); //Por Teclado
-      //pantallaModificar.ModificarHuesped(nuevoDTO); //DTO Precargado
-      
     }
 }
