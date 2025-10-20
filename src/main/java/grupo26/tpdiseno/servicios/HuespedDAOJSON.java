@@ -1,13 +1,11 @@
 package grupo26.tpdiseno.servicios;
 
 import grupo26.tpdiseno.entidades.SinConcordanciaException;
-import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
 import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.HuespedDTO;
 import static grupo26.tpdiseno.entidades.HuespedDTO.parsearHuesped;
-import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -73,7 +71,7 @@ public class HuespedDAOJSON implements HuespedDAO {
         contenido.append(nuevo);
         contenido.append("}},\n");
         contenido.append("{\"huesped\": {")
-                .append("\"id\": \"").append(mayorID).append("\", ")
+                .append("\"id\": ").append(mayorID).append(", ")
                 .append("\"nombre\": \"").append(huesped.getNombres()).append("\", ")
                 .append("\"apellido\": \"").append(huesped.getApellido()).append("\", ")
                 .append("\"edad\": ").append(huesped.getEdad()).append(", ")
@@ -140,19 +138,19 @@ public class HuespedDAOJSON implements HuespedDAO {
     @Override
     public List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped filtro) throws SinConcordanciaException {
         List<HuespedDTO> huespedes = new ArrayList<>();
-         //                 System.out.println("Entre");
+        //                 System.out.println("Entre");
 
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
-                new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+                    new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.contains("huesped")) {
                         HuespedDTO huesped = parsearHuesped(linea);
-                          //  System.out.println("Apellido leído: '" + huesped.getApellido() + "' (length: " + huesped.getApellido().length() + ")");
+                        //  System.out.println("Apellido leído: '" + huesped.getApellido() + "' (length: " + huesped.getApellido().length() + ")");
                         huespedes.add(huesped);
-                       //  System.out.println(huesped.toString());
-                       
+                        //  System.out.println(huesped.toString());
+
                     }
                 }
             } catch (IOException e) {
@@ -162,7 +160,7 @@ public class HuespedDAOJSON implements HuespedDAO {
 
         // Aplicar filtros después de cargar todo
         List<HuespedDTO> listaFiltrada = huespedes;
-/*
+        /*
 System.out.println("=== VALORES DEL FILTRO ===");
 System.out.println("Nombre: " + filtro.getNombre());
 System.out.println("Apellido: " + filtro.getApellido());
@@ -211,8 +209,10 @@ System.out.println("========================");*/
                                 .append("\"documento\": \"").append(unHuesped.getDocumentacion()).append("\", ")
                                 .append("\"nacionalidad\": \"").append(unHuesped.getNacionalidad()).append("\", ")
                                 .append("\"email\": \"").append(unHuesped.getEmail()).append("\", ")
-                                .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"")
-                                .append("}},\n");
+                                .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"");
+                        if (linea.endsWith(",")) {
+                            contenido.append(","); // quitar coma final si existe
+                        }
                     } else {
                         contenido.append(linea.trim()).append("\n");
                     }
@@ -237,10 +237,8 @@ System.out.println("========================");*/
 
     @Override
     public void eliminarHuesped(String unIndice) {
-        boolean eliminarComa = false;
         //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
         StringBuilder contenido = new StringBuilder();
-        int contador = 1;
 
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
@@ -249,6 +247,10 @@ System.out.println("========================");*/
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.trim().equals("]")) {
+                        int ultimaComa = contenido.lastIndexOf(",");
+                        if (ultimaComa != -1 && ultimaComa == contenido.length() - 1) {// se fija si el final
+                            contenido.deleteCharAt(ultimaComa);
+                        }
                         contenido.append(linea.trim());
                         break;
                     }
