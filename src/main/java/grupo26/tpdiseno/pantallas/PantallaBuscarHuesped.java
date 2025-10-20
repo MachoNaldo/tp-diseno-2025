@@ -79,7 +79,7 @@ public class PantallaBuscarHuesped {
         List<HuespedDTO> lista = gestor.buscarHuesped(builder.Build());
         HuespedDTO huesped = this.seleccionarHuesped(lista);
         System.out.println("Ha seleccionado el huesped: ");
-        huesped.toString();
+        System.out.println(huesped.toString());
         System.out.println("¿Qué desea hacer con el huésped?");
         System.out.println("1. Modificar");
         System.out.println("2. Eliminar");

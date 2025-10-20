@@ -199,7 +199,7 @@ System.out.println("========================");*/
                     if (linea.trim().equals("]")) {
                         break;
                     }
-                    if (linea.contains("huesped") && linea.contains("{\"id\": \"" + String.valueOf(unHuesped.getId()))) {
+                    if (linea.contains("huesped") && linea.contains("{\"id\": " + String.valueOf(unHuesped.getId()))) {
                         contenido.append("{\"huesped\": {")
                                 .append("\"id\": ").append(unHuesped.getId()).append(", ")
                                 .append("\"nombre\": \"").append(unHuesped.getNombres()).append("\", ")
@@ -209,9 +209,12 @@ System.out.println("========================");*/
                                 .append("\"documento\": \"").append(unHuesped.getDocumentacion()).append("\", ")
                                 .append("\"nacionalidad\": \"").append(unHuesped.getNacionalidad()).append("\", ")
                                 .append("\"email\": \"").append(unHuesped.getEmail()).append("\", ")
-                                .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"");
-                        if (linea.endsWith(",")) {
-                            contenido.append(","); // quitar coma final si existe
+                                .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"")
+                                .append("}}");
+                        if (linea.endsWith("}},")) {
+                            contenido.append(",\n"); // quitar coma final si existe
+                        }else{
+                            contenido.append("\n");
                         }
                     } else {
                         contenido.append(linea.trim()).append("\n");
@@ -254,7 +257,7 @@ System.out.println("========================");*/
                         contenido.append(linea.trim());
                         break;
                     }
-                    if (!(linea.contains("{\"id\": \"" + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
+                    if (!(linea.contains("{\"id\": " + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
                         contenido.append(linea.trim());
                         contenido.append("\n");
                     }
