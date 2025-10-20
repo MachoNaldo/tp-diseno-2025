@@ -1,13 +1,11 @@
 package grupo26.tpdiseno.servicios;
 
 import grupo26.tpdiseno.entidades.SinConcordanciaException;
-import grupo26.tpdiseno.entidades.DatosInvalidosException;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
 import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.HuespedDTO;
 import static grupo26.tpdiseno.entidades.HuespedDTO.parsearHuesped;
-import grupo26.tpdiseno.pantallas.PantallaBuscarHuesped;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -72,7 +70,7 @@ public class HuespedDAOJSON implements HuespedDAO {
         contenido.append(nuevo);
         contenido.append("}},\n");
         contenido.append("{\"huesped\": {")
-                .append("\"id\": \"").append(mayorID).append("\", ")
+                .append("\"id\": ").append(mayorID).append(", ")
                 .append("\"nombre\": \"").append(huesped.getNombres()).append("\", ")
                 .append("\"apellido\": \"").append(huesped.getApellido()).append("\", ")
                 .append("\"edad\": ").append(huesped.getEdad()).append(", ")
@@ -91,22 +89,23 @@ public class HuespedDAOJSON implements HuespedDAO {
             System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
         }
     }
+    
     @Override
     public List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped filtro) throws SinConcordanciaException {
         List<HuespedDTO> huespedes = new ArrayList<>();
-         //                 System.out.println("Entre");
+        //                 System.out.println("Entre");
 
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
-                new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
+                    new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.contains("huesped")) {
                         HuespedDTO huesped = parsearHuesped(linea);
-                          //  System.out.println("Apellido leído: '" + huesped.getApellido() + "' (length: " + huesped.getApellido().length() + ")");
+                        //  System.out.println("Apellido leído: '" + huesped.getApellido() + "' (length: " + huesped.getApellido().length() + ")");
                         huespedes.add(huesped);
-                       //  System.out.println(huesped.toString());
-                       
+                        //  System.out.println(huesped.toString());
+
                     }
                 }
             } catch (IOException e) {
@@ -116,7 +115,7 @@ public class HuespedDAOJSON implements HuespedDAO {
 
         // Aplicar filtros después de cargar todo
         List<HuespedDTO> listaFiltrada = huespedes;
-/*
+        /*
 System.out.println("=== VALORES DEL FILTRO ===");
 System.out.println("Nombre: " + filtro.getNombre());
 System.out.println("Apellido: " + filtro.getApellido());
@@ -155,9 +154,9 @@ System.out.println("========================");*/
                     if (linea.trim().equals("]")) {
                         break;
                     }
-                    if (linea.contains("huesped") && linea.contains("{\"id\": \"" + String.valueOf(unHuesped.getId()))) {
+                    if (linea.contains("huesped") && linea.contains("{\"id\": " + String.valueOf(unHuesped.getId()))) {
                         contenido.append("{\"huesped\": {")
-                                .append("\"id\": \"").append(unHuesped.getId()).append("\", ")
+                                .append("\"id\": ").append(unHuesped.getId()).append(", ")
                                 .append("\"nombre\": \"").append(unHuesped.getNombres()).append("\", ")
                                 .append("\"apellido\": \"").append(unHuesped.getApellido()).append("\", ")
                                 .append("\"edad\": ").append(unHuesped.getEdad()).append(", ")
@@ -166,7 +165,12 @@ System.out.println("========================");*/
                                 .append("\"nacionalidad\": \"").append(unHuesped.getNacionalidad()).append("\", ")
                                 .append("\"email\": \"").append(unHuesped.getEmail()).append("\", ")
                                 .append("\"hospedado\": \"").append(unHuesped.getHospedado()).append("\"")
-                                .append("}},\n");
+                                .append("}}");
+                        if (linea.endsWith("}},")) {
+                            contenido.append(",\n"); // quitar coma final si existe
+                        }else{
+                            contenido.append("\n");
+                        }
                     } else {
                         contenido.append(linea.trim()).append("\n");
                     }
@@ -201,10 +205,14 @@ System.out.println("========================");*/
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.trim().equals("]")) {
+                        int ultimaComa = contenido.lastIndexOf(",");
+                        if (ultimaComa != -1 && ultimaComa == contenido.length() - 1) {// se fija si el final
+                            contenido.deleteCharAt(ultimaComa);
+                        }
                         contenido.append(linea.trim());
                         break;
                     }
-                    if (!(linea.contains("{\"id\": \"" + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
+                    if (!(linea.contains("{\"id\": " + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
                         contenido.append(linea.trim());
                         contenido.append("\n");
                     }

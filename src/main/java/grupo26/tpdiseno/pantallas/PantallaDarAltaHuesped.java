@@ -138,6 +138,7 @@ public class PantallaDarAltaHuesped {
          
          System.out.println("Ingrese el numero de su domicilio: ");
          int numDeCalle = sc.nextInt();
+         sc.nextLine();
          
          System.out.println("Ingrese piso: ");
          String unPiso = sc.nextLine();
