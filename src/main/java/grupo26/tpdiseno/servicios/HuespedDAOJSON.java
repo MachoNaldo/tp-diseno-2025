@@ -40,10 +40,10 @@ public class HuespedDAOJSON implements HuespedDAO {
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.contains("huesped")) {
-                        int inicioId = linea.indexOf("\"id\": \"") + 7; // +7 para saltar {"id": "
-                        int finId = linea.indexOf("\"", inicioId);
+                        int inicioId = linea.indexOf("\"id\": ") + 6; // +6 para saltar {"id": "
+                        int finId = linea.indexOf(",", inicioId);
                         mayorID = Integer.parseInt(linea.substring(inicioId, finId));
-                        
+
                     } else if (linea.trim().equals("]")) {
                         break;
                     }
@@ -89,7 +89,7 @@ public class HuespedDAOJSON implements HuespedDAO {
             System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
         }
     }
-    
+
     @Override
     public List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped filtro) throws SinConcordanciaException {
         List<HuespedDTO> huespedes = new ArrayList<>();
@@ -168,7 +168,7 @@ System.out.println("========================");*/
                                 .append("}}");
                         if (linea.endsWith("}},")) {
                             contenido.append(",\n"); // quitar coma final si existe
-                        }else{
+                        } else {
                             contenido.append("\n");
                         }
                     } else {
@@ -205,16 +205,21 @@ System.out.println("========================");*/
                 String linea;
                 while ((linea = lector.readLine()) != null) {
                     if (linea.trim().equals("]")) {
-                        int ultimaComa = contenido.lastIndexOf(",");
-                        if (ultimaComa != -1 && ultimaComa == contenido.length() - 1) {// se fija si el final
-                            contenido.deleteCharAt(ultimaComa);
+                        if (contenido.toString().endsWith(",\n")) {
+                            int ultimaComa = contenido.lastIndexOf(",");
+                            if (ultimaComa != -1) {
+                                contenido.deleteCharAt(ultimaComa);
+                            }
                         }
                         contenido.append(linea.trim());
+
                         break;
                     }
                     if (!(linea.contains("{\"id\": " + unIndice) && linea.contains("huesped"))) { // CAMBIO NACHO
                         contenido.append(linea.trim());
                         contenido.append("\n");
+                    } else {
+
                     }
                 }
 

@@ -3,7 +3,7 @@
 {"usuario": {"nombreUsuario": "Nico", "clave": "abcd"}},
 {"usuario": {"nombreUsuario": "Franco", "clave": "contrasenia"}},
 {"huesped": {"id": 1, "nombre": "Gabriel", "apellido": "Isnardo", "edad": 24, "tipoDocumento": "DNI", "documento": "43415300", "nacionalidad": "argentino", "email": "gabrielisnardo01@hotmail.com", "hospedado": "no"}},
-{"huesped": {"id": 2, "nombre": "Lucas", "apellido": "Sanabria", "edad": 44, "tipoDocumento": "DNI", "documento": "20227731", "nacionalidad": "Argentina", "email": "Gabriel@hotmail.com", "hospedado": "no"}},
+{"huesped": {"id": 2, "nombre": "Lucas", "apellido": "Sanabria", "edad": 44, "tipoDocumento": "DNI", "documento": "20227731", "nacionalidad": "Argentina", "email": "Gabriel@gmai.com", "hospedado": "false"}},
 {"huesped": {"id": 4, "nombre": "Gasparcito", "apellido": "BenegasMono", "edad": 49, "tipoDocumento": "DNI", "documento": "291313121", "nacionalidad": "Argentino", "email": "gasparb@gmail.com", "hospedado": "false"}},
-{"huesped": {"id": 5, "nombre": "Nicolas", "apellido": "Perez", "edad": 30, "tipoDocumento": "DNI", "documento": "40123456", "nacionalidad": "Argentino", "email": "monoloco@gmail.com", "hospedado": "false"}}
+{"huesped": {"id": 5, "nombre": "Nicolas", "apellido": "Perez", "edad": 30, "tipoDocumento": "DNI", "documento": "40123456", "nacionalidad": "Argentino", "email": "monoloco@gmail.com", "hospedado": "false"}},
 ]

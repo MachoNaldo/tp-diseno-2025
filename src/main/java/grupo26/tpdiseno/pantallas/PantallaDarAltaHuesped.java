@@ -41,6 +41,7 @@ public class PantallaDarAltaHuesped {
          
          System.out.println("Ingrese su Edad: ");
          int unaEdad = sc.nextInt();
+         sc.nextLine();
          
         
         String tipoSexo;
@@ -90,17 +91,21 @@ public class PantallaDarAltaHuesped {
          
          System.out.println("Ingrese su Documentacion: ");
          int unDocumento = sc.nextInt();
-
+         sc.nextLine();
+         
          System.out.println("Ingrese su fecha de nacimiento: ");
          System.out.println("Dia: ");
          int diaFecha = sc.nextInt();
+         sc.nextLine();
          
          System.out.println("Mes: ");
          int mesFecha = sc.nextInt();
+         sc.nextLine();
          
          System.out.println("Anio:");
          int anioFecha = sc.nextInt();
-         
+         sc.nextLine();
+                 
          LocalDate fechaLocal = LocalDate.of(anioFecha, mesFecha, diaFecha);
          
          Date fechaNacimiento = Date.from(fechaLocal.atStartOfDay(ZoneId.systemDefault()).toInstant());
