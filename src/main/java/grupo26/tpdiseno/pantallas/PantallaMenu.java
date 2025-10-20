@@ -29,9 +29,7 @@ public class PantallaMenu {
         do {
             System.out.println("\n=== SISTEMA DE GESTION DE HUESPEDES ===");
             System.out.println("1. Dar de Alta Huesped");
-            System.out.println("2. Buscar Huesped");
-            System.out.println("3. Modificar Huesped");
-            System.out.println("4. Dar de Baja Huesped");
+            System.out.println("2. Buscar/Gestionar Huesped");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opcion: ");
 
@@ -48,13 +46,6 @@ public class PantallaMenu {
                     case 2:
                         pantallaBuscar.buscarHuesped();
                         //pantallaModificar.ModificarHuesped();
-                        break;
-                    case 3:
-                        
-                        //pantallaModificar.ModificarHuesped();
-                        break;
-                    case 4:
-                        pantallaEliminar.DarBajaHuesped();
                         break;
                     case 0:
                         System.out.println("Saliendo del sistema...");
