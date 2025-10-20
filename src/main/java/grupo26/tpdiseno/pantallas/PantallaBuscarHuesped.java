@@ -88,7 +88,7 @@ public class PantallaBuscarHuesped {
         int opcion;
         do {
             while (!sc.hasNextInt()) {
-                System.out.print("Opción inválida. Ingrese 1, 2 o 3: ");
+                System.out.print("Opción invalida. Ingrese 1, 2 o 3: ");
                 sc.next();
             }
             opcion = sc.nextInt();
@@ -109,24 +109,23 @@ public class PantallaBuscarHuesped {
                     System.out.print("Opción inválida. Ingrese 1, 2 o 3: ");
             }
         } while (true);
-        //return listaHuespedes;
     }
 
     public HuespedDTO seleccionarHuesped(List<HuespedDTO> unaLista) {
         if (unaLista == null || unaLista.isEmpty()) {
-            System.out.println("No hay huéspedes disponibles para seleccionar.");
+            System.out.println("No hay huespedes disponibles para seleccionar.");
             return null;
         }
-        System.out.println("Lista de huéspedes:");
+        System.out.println("Lista de huespedes:");
         for (HuespedDTO h : unaLista) {
             System.out.println(h.toString());
         }
         int eleccion;
         HuespedDTO seleccionado = null;
         do {
-            System.out.print("Seleccione un huésped escribiendo su ID: ");
+            System.out.print("Seleccione un huesped escribiendo su ID: ");
             while (!sc.hasNextInt()) {
-                System.out.print("Entrada no válida. Ingrese un número de ID: ");
+                System.out.print("Entrada no valida. Ingrese un numero de ID: ");
                 sc.next();
             }
             eleccion = sc.nextInt();
@@ -137,7 +136,7 @@ public class PantallaBuscarHuesped {
                 }
             }
             if (seleccionado == null) {
-                System.out.println("ID no válido, ingrese otro:");
+                System.out.println("ID no valido, ingrese otro:");
             }
         } while (seleccionado == null);
 

@@ -45,8 +45,7 @@ public class HuespedDAOJSON implements HuespedDAO {
                         int inicioId = linea.indexOf("\"id\": \"") + 7; // +7 para saltar {"id": "
                         int finId = linea.indexOf("\"", inicioId);
                         mayorID = Integer.parseInt(linea.substring(inicioId, finId));
-
-                        //contador =  Integer.parseInt((linea.substring(linea.indexOf("{\"id\": ") + 7, linea.lastIndexOf("\","))));
+                        
                     } else if (linea.trim().equals("]")) {
                         break;
                     }
@@ -92,51 +91,6 @@ public class HuespedDAOJSON implements HuespedDAO {
             System.out.println("️ Alto ahi ha ocurrido un error escribiendo archivo: " + e.getMessage());
         }
     }
-
-    /*
-    @Override
-    public void buscarHuesped(FiltroBusquedaHuesped filtro, List<String> lista) throws SinConcordanciaException {
-        if (archivo.exists()) {
-            try (BufferedReader lector = new BufferedReader(
-                    new InputStreamReader(new FileInputStream(archivo), StandardCharsets.UTF_8))) {
-
-                String linea;
-                while ((linea = lector.readLine()) != null) {
-                    if (linea.trim().equals("]")) {
-
-                        if (filtro.getNombre() != null) {
-                            filtrarPorNombre(lista, filtro.getNombre());
-                        }
-                        if (filtro.getApellido() != null) {
-                            filtrarPorApellido(lista, filtro.getApellido());
-                        }
-                        if (filtro.getTipoDoc() != null) {
-                            filtrarPorTipoDoc(lista, filtro.getTipoDoc());
-                        }
-                        if (filtro.getNumDoc() != 0) {
-                            filtrarPorNumDoc(lista, filtro.getNumDoc());
-                        }
-                        break;
-                    } else {
-                        //Hacemos que los registros solo muestren los datos que nos interesan
-                        if (linea.contains("huesped")) {
-                            String registro;
-                            registro = linea.substring(linea.indexOf("{\"huesped\": "), linea.lastIndexOf("\"edad\": "));
-                            registro = (registro + linea.substring(linea.indexOf("\"tipoDocumento\": "), linea.lastIndexOf("\", \"nacionalidad\": \"")) + "\"}");
-                            registro = linea.substring(linea.indexOf("{\"huesped\": "), linea.lastIndexOf("\"edad\": "));
-                            lista.add(registro);
-                        }
-                    }
-                }
-
-            } catch (IOException e) {
-                System.out.println("Error leyendo archivo: " + e.getMessage());
-            }
-        }
-        if (lista.isEmpty()) {
-            throw new SinConcordanciaException("Sin concordancia con los datos de busqueda");
-        }
-    }*/
     @Override
     public List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped filtro) throws SinConcordanciaException {
         List<HuespedDTO> huespedes = new ArrayList<>();
@@ -203,7 +157,7 @@ System.out.println("========================");*/
                     }
                     if (linea.contains("huesped") && linea.contains("{\"id\": \"" + String.valueOf(unHuesped.getId()))) {
                         contenido.append("{\"huesped\": {")
-                                .append("\"id\": ").append(unHuesped.getId()).append(", ")
+                                .append("\"id\": \"").append(unHuesped.getId()).append("\", ")
                                 .append("\"nombre\": \"").append(unHuesped.getNombres()).append("\", ")
                                 .append("\"apellido\": \"").append(unHuesped.getApellido()).append("\", ")
                                 .append("\"edad\": ").append(unHuesped.getEdad()).append(", ")
@@ -237,10 +191,8 @@ System.out.println("========================");*/
 
     @Override
     public void eliminarHuesped(String unIndice) {
-        boolean eliminarComa = false;
         //public void agregarHuesped(Huesped huesped, boolean forzar) throws DocumentoUsadoException
         StringBuilder contenido = new StringBuilder();
-        int contador = 1;
 
         if (archivo.exists()) {
             try (BufferedReader lector = new BufferedReader(
