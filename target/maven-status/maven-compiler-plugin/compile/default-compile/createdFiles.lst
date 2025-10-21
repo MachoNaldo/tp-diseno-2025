@@ -20,6 +20,7 @@ grupo26\tpdiseno\pantallas\PantallaModificarHuesped.class
 grupo26\tpdiseno\entidades\TipoSexo.class
 grupo26\tpdiseno\entidades\Direccion.class
 grupo26\tpdiseno\entidades\Habitacion.class
+grupo26\tpdiseno\entidades\RegistroNoEncontradoException.class
 grupo26\tpdiseno\pantallas\PantallaDarAltaHuesped.class
 grupo26\tpdiseno\gestores\GestorHuesped.class
 grupo26\tpdiseno\entidades\Persona.class

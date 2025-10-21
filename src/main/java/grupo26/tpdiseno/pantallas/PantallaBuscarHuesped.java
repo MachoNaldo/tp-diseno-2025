@@ -6,6 +6,7 @@ package grupo26.tpdiseno.pantallas;
 
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuespedBUILDER;
 import grupo26.tpdiseno.entidades.HuespedDTO;
+import grupo26.tpdiseno.entidades.RegistroNoEncontradoException;
 import grupo26.tpdiseno.gestores.GestorHuesped;
 import grupo26.tpdiseno.entidades.TipoDoc;
 import java.util.List;
@@ -20,112 +21,112 @@ public class PantallaBuscarHuesped {
 
         FiltroBusquedaHuespedBUILDER builder = new FiltroBusquedaHuespedBUILDER();
 
-       
-        
-         int eleccion = 0;
+        int eleccion = 0;
         //System.out.println("\nPresione ENTER para mantener el valor actual, o escriba el nuevo valor.\n");
         System.out.println("Filtros de busqueda: ");
-        do{
+        do {
             System.out.println("\n");
-            if(eleccion==1)System.out.print("*");
+            if (eleccion == 1) {
+                System.out.print("*");
+            }
             System.out.println("Nombre - 1");
-            if(eleccion==2)System.out.print("*");
+            if (eleccion == 2) {
+                System.out.print("*");
+            }
             System.out.println("Apellido - 2");
-            if(eleccion==3)System.out.print("*");
+            if (eleccion == 3) {
+                System.out.print("*");
+            }
             System.out.println("Tipo de Documento - 3");
-            if(eleccion==4)System.out.print("*");
+            if (eleccion == 4) {
+                System.out.print("*");
+            }
             System.out.println("Numero de Documento - 4");
-            
+
             System.out.println("\nCONFIRMAR - 5");
             System.out.println("CANCELAR - 6");
             System.out.println("\n Respuesta: ");
             eleccion = sc.nextInt();
             sc.nextLine();
-            switch(eleccion){
-            case 1:
-                                        System.out.print("Ingrese un nombre: ");
-                                        String unNombre = sc.nextLine().trim();
-                                        if (!unNombre.isEmpty()) {
-                                            builder.nombre(unNombre);
-                                        }
-                                        else{
-                                            System.out.println("No se cargo ningun valor al filtro");
-                                        }
-                break;
-                case 2:
-                                System.out.print("Ingrese un apellido: ");
-                                String unApellido = sc.nextLine().trim();
-                                if (!unApellido.isEmpty()) {
-                                    builder.apellido(unApellido);
-                                }
-                                else{
-                                    System.out.println("No se cargo ningun valor al filtro");
-                                }
-                break;
-                case 3:
-                                TipoDoc unTipoDoc;
-                                            System.out.println("Ingrese un tipo de documento: ");
-                                            System.out.println("1 - DNI");
-                                            System.out.println("2 - LE");
-                                            System.out.println("3 - LC");
-                                            System.out.println("4 - Pasaporte");
-                                            System.out.println("5 - Otro");
-                                            System.out.println("6 - CANCELAR");
-                                            int eleccionDoc = sc.nextInt();
-                                            sc.nextLine();
-                                            switch (eleccionDoc) {
-                                                case 1:
-                                                    unTipoDoc = TipoDoc.DNI;
-                                                    break;
-                                                case 2:
-                                                    unTipoDoc = TipoDoc.LE;
-                                                    break;
-                                                case 3:
-                                                    unTipoDoc = TipoDoc.LC;
-                                                    break;
-                                                case 4:
-                                                    unTipoDoc = TipoDoc.PASAPORTE;
-                                                    break;
-                                                case 5:
-                                                    unTipoDoc = TipoDoc.OTRO;
-                                                    break;
-                                                default:
-                                                    unTipoDoc = TipoDoc.DNI;
-                                            }
-                                                    if (eleccionDoc == 6)  {
-                                       builder.tipoDoc(unTipoDoc);
-                                   }
-                                   else{
-                                       System.out.println("No se cargo ningun valor al filtro");
-                                   }
-                                break;
-                case 4:
-                              System.out.print("Ingrese un Numero de documento: ");
-                                int unDocumento = sc.nextInt();
-                                if(unDocumento != 0){
-                                    builder.numDoc(unDocumento);
-                                }
-                                else{
-                                    System.out.println("No se cargo ningun valor al filtro");
-                                }
+            switch (eleccion) {
+                case 1:
+                    System.out.print("Ingrese un nombre: ");
+                    String unNombre = sc.nextLine().trim();
+                    if (!unNombre.isEmpty()) {
+                        builder.nombre(unNombre);
+                    } else {
+                        System.out.println("No se cargo ningun valor al filtro");
+                    }
                     break;
-            case 5:
-                System.out.println("Buscando Huesped");
-                break;
-                
-            case 6:
-                System.out.println("Operacion Cancelada");
-                break;
-            default:
-                System.out.println("Seleccion invalida, intentelo de nuevo");
-                break;
-        }
-            
-         }while(eleccion!=5 && eleccion!=6);
-        
-            
-            
-          //Prueba
+                case 2:
+                    System.out.print("Ingrese un apellido: ");
+                    String unApellido = sc.nextLine().trim();
+                    if (!unApellido.isEmpty()) {
+                        builder.apellido(unApellido);
+                    } else {
+                        System.out.println("No se cargo ningun valor al filtro");
+                    }
+                    break;
+                case 3:
+                    TipoDoc unTipoDoc;
+                    System.out.println("Ingrese un tipo de documento: ");
+                    System.out.println("1 - DNI");
+                    System.out.println("2 - LE");
+                    System.out.println("3 - LC");
+                    System.out.println("4 - Pasaporte");
+                    System.out.println("5 - Otro");
+                    System.out.println("6 - CANCELAR");
+                    int eleccionDoc = sc.nextInt();
+                    sc.nextLine();
+                    switch (eleccionDoc) {
+                        case 1:
+                            unTipoDoc = TipoDoc.DNI;
+                            break;
+                        case 2:
+                            unTipoDoc = TipoDoc.LE;
+                            break;
+                        case 3:
+                            unTipoDoc = TipoDoc.LC;
+                            break;
+                        case 4:
+                            unTipoDoc = TipoDoc.PASAPORTE;
+                            break;
+                        case 5:
+                            unTipoDoc = TipoDoc.OTRO;
+                            break;
+                        default:
+                            unTipoDoc = TipoDoc.DNI;
+                    }
+                    if (eleccionDoc == 6) {
+                        builder.tipoDoc(unTipoDoc);
+                    } else {
+                        System.out.println("No se cargo ningun valor al filtro");
+                    }
+                    break;
+                case 4:
+                    System.out.print("Ingrese un Numero de documento: ");
+                    int unDocumento = sc.nextInt();
+                    if (unDocumento != 0) {
+                        builder.numDoc(unDocumento);
+                    } else {
+                        System.out.println("No se cargo ningun valor al filtro");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Buscando Huesped");
+                    break;
+
+                case 6:
+                    System.out.println("Operacion Cancelada");
+                    break;
+                default:
+                    System.out.println("Seleccion invalida, intentelo de nuevo");
+                    break;
+            }
+
+        } while (eleccion != 5 && eleccion != 6);
+
+        //Prueba
         /*
         System.out.println("Ingresar Nombre? (si/no): ");
         if (sc.nextLine().equals("si")) {
@@ -180,8 +181,7 @@ public class PantallaBuscarHuesped {
             builder.numDoc(sc.nextInt());
         }
         
-        */
-
+         */
         GestorHuesped gestor = GestorHuesped.getInstancia();
 
         //Construimos el filtro usando el patron BUILDER
@@ -208,8 +208,13 @@ public class PantallaBuscarHuesped {
                     panModificar.modificarHuesped(huesped);
                     return;
                 case 2:
-                    gestor.eliminarHuesped(String.valueOf(huesped.getId()));
-                    System.out.print("El huesped fue eliminado exitosamente");
+                    try {
+                        gestor.eliminarHuesped(String.valueOf(huesped.getId()));
+                        System.out.print("El huesped fue eliminado exitosamente");
+                    } catch (RegistroNoEncontradoException re) {
+                            System.out.println(re);
+                    }
+
                     return;
                 case 3:
                     return;
@@ -217,8 +222,7 @@ public class PantallaBuscarHuesped {
                     System.out.print("Opción invalida. Ingrese 1, 2 o 3: ");
             }
         } while (true);
-        
-        
+
     }
 
     public HuespedDTO seleccionarHuesped(List<HuespedDTO> unaLista) {

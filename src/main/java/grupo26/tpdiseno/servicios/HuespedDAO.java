@@ -7,6 +7,7 @@ import grupo26.tpdiseno.entidades.Huesped;
 import grupo26.tpdiseno.entidades.DocumentoUsadoException;
 import grupo26.tpdiseno.entidades.FiltroBusquedaHuesped;
 import grupo26.tpdiseno.entidades.HuespedDTO;
+import grupo26.tpdiseno.entidades.RegistroNoEncontradoException;
 import grupo26.tpdiseno.entidades.SinConcordanciaException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public interface HuespedDAO {
     //void buscarHuesped(FiltroBusquedaHuesped unFiltro, List<String> unaLista) throws SinConcordanciaException;
     List<HuespedDTO> buscarHuespedDTO(FiltroBusquedaHuesped unFiltro) throws SinConcordanciaException; //Metodo Nacho para que buscar retorne los DTOs
     void modificarHuesped(Huesped unHuesped);
-    void eliminarHuesped(String unHuesped);
+    void eliminarHuesped(String unHuesped) throws RegistroNoEncontradoException;
     //boolean verificarHuesped(Huesped huesped);
     //void prueba(Huesped huesped) throws DocumentoUsadoException;
 }
